@@ -1,0 +1,15 @@
+.custom-pagination {
+    --cui-pagination-color: #ffffff;           /* color de texto normal */
+    --cui-pagination-bg: transparent;              /* fondo normal */
+    --cui-pagination-border-color: #ffffff;    /* borde normal */
+    --cui-pagination-active-bg: #3d99f5;       /* fondo activo */
+    --cui-pagination-active-color: #ffffff;
+    --cui-pagination-active-border-color: #ffffff;    /* texto activo */
+    --cui-pagination-hover-color: #ffffff;
+    --cui-pagination-hover-border-color: #ffffff;     /* hover texto */    /* hover texto */
+    --cui-pagination-disabled-bg: transparent; /* fondo transparente para disabled */
+    --cui-pagination-disabled-color: #ffffff;
+    --cui-pagination-disabled-border-color: #ffffff;
+      /* texto disabled */
+  }
+  

@@ -1,0 +1,5 @@
+/* Table.css */
+.custom-table-hover {
+    --cui-table-hover-bg: #3d99f5;
+    --cui-table-hover-color: #ffffff;
+  }
