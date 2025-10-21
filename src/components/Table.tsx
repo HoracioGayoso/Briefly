@@ -2,12 +2,13 @@ import { CTable, CTableHead, CTableRow, CTableHeaderCell, CTableBody, CButton } 
 import { TableRow } from "./TableRow";
 import { Pagination } from "./Pagination";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import CIcon from "@coreui/icons-react";
 import { cilPlus } from "@coreui/icons";
 import "../styles/Table.css";
 export const Table = () => {
     const [page, setPage] = useState(1);
-
+    const router = useRouter();
     const data = [
         { caratula: "Gayoso vs Planiscig: Patentamiento sitio web aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", expediente: "EXP-001", fuero: "Fuero A", proceso: "Proc A", estado: { label: "Al día", color: "success" } },
         { caratula: "Gayoso vs Planiscig: Patentamiento sitio web", expediente: "EXP-002", fuero: "Fuero B", proceso: "Proc B", estado: { label: "Pendientes", color: "warning" } },
@@ -61,6 +62,8 @@ export const Table = () => {
                     fontSize: "28px",
                 }}
                 className="border border-white"
+                onClick={() => router.push("/expedientes/nuevo")}
+
             >
                 <CIcon icon={cilPlus} style={{ width: "25px", height: "25px", color: "white" }} />
             </CButton>
