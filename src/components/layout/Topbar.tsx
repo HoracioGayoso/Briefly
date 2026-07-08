@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CAvatar } from "@coreui/react";
+import { Avatar } from "@/components/ui/avatar";
 import { NotifBell } from "@/components/ui/NotifBell";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
 
@@ -28,22 +28,16 @@ interface TopbarProps {
 export function Topbar({ title, titleInfo, actions, userInitials = "HG" }: TopbarProps) {
   return (
     <div className="app-topbar">
-      <div className="d-flex align-items-center" style={{ gap: 10 }}>
-        <h1 className="text-2xl font-bold mb-0">{title}</h1>
+      <div className="flex items-center gap-2.5">
+        <h1 className="text-2xl font-bold m-0">{title}</h1>
         {titleInfo && <InfoTooltip content={titleInfo} />}
       </div>
       <div className="app-topbar-actions">
         {actions}
         <NotifBell />
-        <CAvatar
-          color="info"
-          textColor="white"
-          shape="rounded-circle"
-          title="Mi perfil"
-          style={{ width: "2.75rem", height: "2.75rem", fontSize: "1rem" }}
-        >
+        <Avatar title="Mi perfil" className="h-11 w-11 text-base">
           {userInitials}
-        </CAvatar>
+        </Avatar>
       </div>
     </div>
   );

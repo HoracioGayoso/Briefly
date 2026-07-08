@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Bell } from "lucide-react";
 import {
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownHeader,
-} from "@coreui/react";
-import CIcon from "@coreui/icons-react";
-import { cilBell } from "@coreui/icons";
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 interface Notification {
   id: string;
@@ -33,30 +33,34 @@ export function NotifBell() {
     setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, seen: true } : n)));
   };
 
-  // Sin variant="nav-item": ese variant hace que CDropdownToggle renderice
-  // un <a href="#"> en vez de un <button>, lo que rompía la campana
-  // (subrayado de link, salto de página al hacer click, etc.).
   return (
-    <CDropdown alignment="end">
-      <CDropdownToggle caret={false} className="notif-bell-btn" title="Notificaciones">
-        <CIcon icon={cilBell} size="xl" />
+    <DropdownMenu>
+      <DropdownMenuTrigger className="notif-bell-btn" title="Notificaciones" aria-label="Notificaciones">
+        <Bell className="h-6 w-6" />
         {unseenCount > 0 && <span className="notif-badge">{unseenCount}</span>}
-      </CDropdownToggle>
-      <CDropdownMenu style={{ width: 320 }}>
-        <CDropdownHeader>Notificaciones</CDropdownHeader>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-80">
+        <DropdownMenuLabel>Notificaciones</DropdownMenuLabel>
         {notifications.map((n) => (
-          <CDropdownItem
+          <DropdownMenuItem
             key={n.id}
-            as="button"
-            type="button"
-            className="notif-item-text"
-            onClick={() => markAsSeen(n.id)}
-            active={!n.seen}
+            onSelect={(e) => {
+              e.preventDefault();
+              markAsSeen(n.id);
+            }}
+            className="items-start whitespace-normal"
           >
-            {n.text}
-          </CDropdownItem>
+            {/* Punto de acento = no leída; hueco transparente = leída (mantiene alineación) */}
+            <span
+              className={cn(
+                "mt-1.5 h-2 w-2 shrink-0 rounded-full",
+                n.seen ? "bg-transparent" : "bg-(--color-accent)"
+              )}
+            />
+            <span className={cn(n.seen && "text-(--color-text-secondary)")}>{n.text}</span>
+          </DropdownMenuItem>
         ))}
-      </CDropdownMenu>
-    </CDropdown>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

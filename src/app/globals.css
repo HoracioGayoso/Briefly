@@ -1,8 +1,14 @@
+/* Orden de capas de cascada. Clave: `coreui` va ENTRE `base` y `components`:
+   - Tailwind `base` (Preflight/reset) queda por DEBAJO de coreui, así el reset de
+     CoreUI/Bootstrap (Reboot) sigue mandando en sus propios componentes (sidebar,
+     dropdown de notificaciones, etc.) y no se los rompe el Preflight de Tailwind.
+   - `components` y `utilities` de Tailwind quedan por ENCIMA de coreui, así
+     nuestros componentes shadcn (que usan utilidades) le ganan a CoreUI cuando
+     compiten por la misma propiedad (border-radius, border, etc.).
+   Sin esta capa, el CSS sin capa de CoreUI le ganaba a las utilidades de Tailwind. */
+@layer theme, base, coreui, components, utilities;
+@import "@coreui/coreui/dist/css/coreui.min.css" layer(coreui);
 @import "tailwindcss";
-
-/* CoreUI se importa como side-effect en src/app/layout.tsx (no acá vía
-   @import), que es la forma soportada por el bundler de Next.js para CSS
-   de node_modules. */
 
 /* ==========================================================================
    Design tokens de Briefly
@@ -126,37 +132,9 @@ body {
   width: 16rem;
 }
 
-/* Espaciado icono↔texto en cada item del nav. Se pone en el label (no en el
-   ícono) para que en modo angosto, con el label en display:none, el ícono
-   quede perfectamente centrado sin necesitar un override. Va antes de las
-   reglas .is-collapsed para respetar el orden de especificidad ascendente. */
-.nav-label {
-  margin-inline-start: var(--space-sm);
-}
-
-/* --- Modo angosto: sólo íconos, centrados; nada de texto --- */
-.briefly-sidebar.is-collapsed .sidebar-header {
-  justify-content: center;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-.briefly-sidebar.is-collapsed .sidebar-brand {
-  justify-content: center;
-  padding: 0;
-}
-.briefly-sidebar.is-collapsed .nav-link {
-  justify-content: center;
-}
-/* CoreUI le pone margin-right al ícono para separarlo del texto; en modo
-   angosto el texto está oculto, así que ese margen sólo descentraría el ícono
-   sobre el rail. Lo anulamos para centrarlo perfecto. */
-.briefly-sidebar.is-collapsed .nav-icon {
-  margin-right: 0;
-  margin-inline-end: 0;
-}
-.briefly-sidebar.is-collapsed .nav-label {
-  display: none;
-}
+/* El estado colapsado/expandido de los ítems del nav (centrado, ocultar label)
+   se maneja ahora con clases condicionales en el componente Sidebar (según
+   `expanded`), no con reglas .is-collapsed acá. */
 
 /* ---- Topbar canónico: título → acciones contextuales → campana → avatar ---- */
 .app-topbar {
@@ -267,15 +245,6 @@ body {
   color: var(--color-text-primary);
 }
 
-/* ---- Texto de las notificaciones: que haga wrap en vez de desbordar el
-   ancho fijo del menú (Bootstrap pone white-space:nowrap por defecto en
-   .dropdown-item) ---- */
-.notif-item-text {
-  white-space: normal;
-  text-align: left;
-  overflow-wrap: break-word;
-}
-
 /* ---- Hover de fila de tabla: accent azul + texto blanco, igual que
    mockups/shared.css (.data-table tbody tr:hover), en vez del gris
    translúcido por defecto de Bootstrap/CoreUI. Se pisan las custom
@@ -310,12 +279,8 @@ body {
   cursor: help;
 }
 
-/* ---- Tooltip en una sola línea (CoreUI/Bootstrap limita .tooltip-inner a
-   max-width:200px con wrap normal por defecto) ---- */
-.briefly-tooltip-nowrap .tooltip-inner {
-  white-space: nowrap;
-  max-width: none;
-}
+/* El tooltip del InfoBadge ahora es la primitiva Tooltip (shadcn/Radix), que
+   ya trae su propio estilo y max-width; no necesita reglas acá. */
 
 /* ---- Truncado de texto largo con elipsis (carátulas, etc.) ---- */
 .truncate-cell {
@@ -324,4 +289,90 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* ---- Highlight de items del DropdownMenu (shadcn/Radix) ----
+   Va acá y no como utilidad de Tailwind a propósito: el CSS de CoreUI se importa
+   sin @layer y le gana a las utilidades capadas de Tailwind dentro del portal del
+   menú (ver nota en src/components/ui/dropdown-menu.tsx). data-[highlighted] lo
+   pone Radix al navegar con mouse o teclado; usa el mismo acento azul de la app. */
+.briefly-menu-item[data-highlighted] {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* ---- Checkbox (shadcn/Radix): TODO el color va acá y no en utilidades de
+   Tailwind, porque en este proyecto las utilidades (bg-transparent, border-*)
+   le ganan a las reglas .briefly-* y pisaban el estado checked. data-state lo
+   pone Radix. Checked = acento azul, mismo tono que los botones. ---- */
+.briefly-checkbox {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #fff;
+}
+.briefly-checkbox[data-state="checked"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ==========================================================================
+   Animaciones (filosofía Emil Kowalski: sobrias, con propósito, <300ms,
+   ease-out, y degradadas con prefers-reduced-motion).
+   ========================================================================== */
+
+/* Entrada: nada aparece "de la nada" — escala desde 0.96 + opacidad. Salida:
+   más rápida que la entrada. Ambas ease-out (curva fuerte para que se sienta
+   intencional, no la ease-out débil por defecto). */
+@keyframes briefly-pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes briefly-pop-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+@keyframes briefly-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Menú del DropdownMenu (acciones, multiselect, notificaciones). Origin-aware:
+   escala desde el trigger, no desde el centro (var de Radix). */
+.briefly-menu {
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+}
+.briefly-menu[data-state="open"] {
+  animation: briefly-pop-in 170ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.briefly-menu[data-state="closed"] {
+  animation: briefly-pop-out 120ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Tooltip del InfoBadge, también origin-aware. */
+.briefly-tooltip {
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+}
+.briefly-tooltip[data-state="delayed-open"],
+.briefly-tooltip[data-state="instant-open"] {
+  animation: briefly-pop-in 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Reduced motion: sin movimiento (solo un fade suave), y sin el scale de press
+   de los botones. Se mantiene la opacidad porque ayuda a la comprensión. */
+@media (prefers-reduced-motion: reduce) {
+  .briefly-menu[data-state="open"],
+  .briefly-tooltip[data-state="delayed-open"],
+  .briefly-tooltip[data-state="instant-open"] {
+    animation: briefly-fade-in 120ms ease;
+  }
+  .briefly-menu[data-state="closed"] {
+    animation: none;
+  }
+  .briefly-checkbox,
+  button {
+    transition: none !important;
+  }
+  button:active {
+    transform: none !important;
+  }
 }

@@ -1,48 +1,56 @@
 "use client";
 
-import { CBadge, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CTableRow, CTableDataCell } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
-import { cilOptions, cilFindInPage, cilPen, cilStorage } from "@coreui/icons";
+import { MoreVertical, FileSearch, Pencil, Archive } from "lucide-react";
+import { TableRow, TableCell } from "@/components/ui/table";
+import { StatusBadge } from "@/components/ui/StatusBadge";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import type { Expediente } from "./types";
 
 export function ExpedienteRow({ caratula, numeroExpediente, fuero, proceso, estado }: Expediente) {
   return (
-    <CTableRow>
-      <CTableDataCell className="align-middle">
+    <TableRow className="hover:bg-(--color-accent) hover:text-white">
+      <TableCell>
         <span className="truncate-cell" title={caratula}>
           {caratula}
         </span>
-      </CTableDataCell>
-      <CTableDataCell className="align-middle">{numeroExpediente}</CTableDataCell>
-      <CTableDataCell className="align-middle">{fuero}</CTableDataCell>
-      <CTableDataCell className="align-middle">{proceso}</CTableDataCell>
-      <CTableDataCell className="align-middle">
-        <CBadge color={estado.color} style={{ minWidth: 110 }}>
-          {estado.label}
-        </CBadge>
-      </CTableDataCell>
-      <CTableDataCell className="align-middle">
-        <CDropdown alignment="end">
-          <CDropdownToggle variant="ghost" caret={false} title="Acciones">
-            <CIcon icon={cilOptions} />
-          </CDropdownToggle>
-          <CDropdownMenu>
+      </TableCell>
+      <TableCell>{numeroExpediente}</TableCell>
+      <TableCell>{fuero}</TableCell>
+      <TableCell>{proceso}</TableCell>
+      <TableCell>
+        <StatusBadge variant={estado.color}>{estado.label}</StatusBadge>
+      </TableCell>
+      <TableCell>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            title="Acciones"
+            aria-label="Acciones"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-(--color-text-secondary) transition-colors outline-none hover:bg-(--color-bg-elevated-2) hover:text-(--color-text-primary) data-[state=open]:bg-(--color-bg-elevated-2)"
+          >
+            <MoreVertical className="h-4 w-4" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
             {/* TODO(etapa 2): habilitar navegación a /expedientes/[id] cuando exista el detalle (RF-08/09). */}
-            <CDropdownItem className="d-flex align-items-center gap-2">
-              <CIcon icon={cilFindInPage} size="sm" />
+            <DropdownMenuItem>
+              <FileSearch className="h-4 w-4" />
               Ver expediente
-            </CDropdownItem>
-            <CDropdownItem className="d-flex align-items-center gap-2">
-              <CIcon icon={cilPen} size="sm" />
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Pencil className="h-4 w-4" />
               Cambiar estado
-            </CDropdownItem>
-            <CDropdownItem className="d-flex align-items-center gap-2">
-              <CIcon icon={cilStorage} size="sm" />
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Archive className="h-4 w-4" />
               Archivar
-            </CDropdownItem>
-          </CDropdownMenu>
-        </CDropdown>
-      </CTableDataCell>
-    </CTableRow>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </TableCell>
+    </TableRow>
   );
 }

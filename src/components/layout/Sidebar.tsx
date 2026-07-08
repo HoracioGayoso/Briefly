@@ -4,58 +4,50 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  CSidebar,
-  CSidebarHeader,
-  CSidebarBrand,
-  CSidebarNav,
-  CNavItem,
-  CNavLink,
-} from "@coreui/react";
-import CIcon from "@coreui/icons-react";
-import {
-  cilFolder,
-  cilHome,
-  cilCalendar,
-  cilPeople,
-  cilDollar,
-  cilBalanceScale,
-  cilPlaylistAdd,
-  cilCreditCard,
-  cilChevronDoubleLeft,
-  cilChevronDoubleRight,
-} from "@coreui/icons";
+  Folder,
+  Gauge,
+  Calendar,
+  Users,
+  DollarSign,
+  Scale,
+  ListPlus,
+  CreditCard,
+  ChevronsLeft,
+  ChevronsRight,
+  type LucideIcon,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   href: string;
   label: string;
-  icon: string[];
+  icon: LucideIcon;
 }
 
 // Mismos 8 ítems y mismo orden que mockups/*.html (sidebar-nav).
+// Dashboard usa un medidor (Gauge), que representa mejor un tablero que una casa.
 const NAV_ITEMS: NavItem[] = [
-  { href: "/expedientes", label: "Expedientes", icon: cilFolder },
-  { href: "/dashboard", label: "Dashboard", icon: cilHome },
-  { href: "/calendario", label: "Calendario", icon: cilCalendar },
-  { href: "/clientes", label: "Clientes", icon: cilPeople },
-  { href: "/honorarios", label: "Honorarios", icon: cilDollar },
-  { href: "/fueros", label: "Fueros", icon: cilBalanceScale },
-  { href: "/procesos", label: "Procesos", icon: cilPlaylistAdd },
-  { href: "/suscripcion", label: "Suscripción", icon: cilCreditCard },
+  { href: "/expedientes", label: "Expedientes", icon: Folder },
+  { href: "/dashboard", label: "Dashboard", icon: Gauge },
+  { href: "/calendario", label: "Calendario", icon: Calendar },
+  { href: "/clientes", label: "Clientes", icon: Users },
+  { href: "/honorarios", label: "Honorarios", icon: DollarSign },
+  { href: "/fueros", label: "Fueros", icon: Scale },
+  { href: "/procesos", label: "Procesos", icon: ListPlus },
+  { href: "/suscripcion", label: "Suscripción", icon: CreditCard },
 ];
 
+/**
+ * Sidebar colapsable, migrada de los componentes CSidebar* de CoreUI a markup
+ * plano + Tailwind. La lógica de ancho (hover/fijado) es la misma de antes y se
+ * apoya en las clases estructurales .briefly-sidebar-slot / .briefly-sidebar
+ * (definidas en globals.css):
+ *   - pinned:  el usuario fijó el menú con el botón de abajo (siempre expandido).
+ *   - hovered: el mouse está sobre el panel.
+ * expanded = pinned || hovered decide el ancho; el SLOT también se ensancha, así
+ * el contenido se DESPLAZA a la derecha (push) en vez de quedar tapado.
+ */
 export function Sidebar() {
-  // Dos estados independientes controlan el ancho, de forma 100% determinista
-  // (sin depender del prop `unfoldable` de CoreUI ni de sus reglas dentro de
-  // @media, que sólo colapsaban ≥992px y dejaban el texto cortado por debajo):
-  //   - pinned:  el usuario fijó el menú con el botón de abajo. Fijado ⇒
-  //     siempre expandido y el contenido se corre a su derecha (reserva 16rem).
-  //   - hovered: el mouse está sobre el panel. Sin fijar, la posición natural
-  //     es angosta (4rem, sólo íconos); al hacer hover se expande COMO OVERLAY
-  //     sobre el contenido (el slot sigue midiendo 4rem, así el contenido no
-  //     salta cada vez que uno roza la barra).
-  // expanded = pinned || hovered  → decide el ancho (íconos+texto vs sólo
-  // íconos) y, como el slot también se ensancha con expanded, el contenido se
-  // desplaza a la derecha (push) tanto al fijar como al hacer hover.
   const [pinned, setPinned] = useState(false);
   const [hovered, setHovered] = useState(false);
   const pathname = usePathname();
@@ -64,35 +56,58 @@ export function Sidebar() {
 
   return (
     <div className={`briefly-sidebar-slot${expanded ? " is-expanded" : ""}`}>
-      <CSidebar
-        className={`briefly-sidebar border-end ${expanded ? "is-expanded" : "is-collapsed"}`}
+      <aside
+        className={cn(
+          "briefly-sidebar flex flex-col border-r border-white/10 bg-(--color-bg-page)",
+          expanded ? "is-expanded" : "is-collapsed"
+        )}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <CSidebarHeader className="border-bottom">
-          <CSidebarBrand className="text-base font-semibold tracking-wide">
+        {/* Marca */}
+        <div
+          className={cn(
+            "flex h-14 shrink-0 items-center border-b border-white/10",
+            expanded ? "px-4" : "justify-center px-2"
+          )}
+        >
+          <span className="text-base font-semibold tracking-wide text-(--color-text-primary)">
             {expanded ? "Briefly" : "B"}
-          </CSidebarBrand>
-        </CSidebarHeader>
+          </span>
+        </div>
 
-        <CSidebarNav>
+        {/* Navegación */}
+        <nav className="flex-1 overflow-hidden py-2">
           {NAV_ITEMS.map((item) => {
             const isActive = pathname?.startsWith(item.href) ?? false;
+            const Icon = item.icon;
             return (
-              <CNavItem key={item.href}>
-                <CNavLink as={Link} href={item.href} active={isActive} title={item.label}>
-                  <CIcon icon={item.icon} customClassName="nav-icon" />
-                  {/* El label se oculta con `display:none` en modo angosto
-                      (clase .is-collapsed en el panel), así el texto desaparece
-                      limpio en vez de quedar recortado por overflow. */}
-                  <span className="nav-label">{item.label}</span>
-                </CNavLink>
-              </CNavItem>
+              <Link
+                key={item.href}
+                href={item.href}
+                title={item.label}
+                className={cn(
+                  "mx-2 my-0.5 flex items-center rounded-md py-2.5 text-sm no-underline transition-colors",
+                  expanded ? "gap-3 px-3" : "justify-center px-0",
+                  isActive
+                    ? "bg-(--color-accent) text-white"
+                    : "text-(--color-text-secondary) hover:bg-(--color-bg-elevated-2) hover:text-(--color-text-primary)"
+                )}
+              >
+                <Icon className="h-5 w-5 shrink-0" />
+                {expanded && <span className="truncate">{item.label}</span>}
+              </Link>
             );
           })}
-        </CSidebarNav>
+        </nav>
 
-        <CSidebarHeader className="border-top">
+        {/* Toggle de fijado */}
+        <div
+          className={cn(
+            "flex h-14 shrink-0 items-center border-t border-white/10",
+            expanded ? "justify-end px-3" : "justify-center px-2"
+          )}
+        >
           <button
             type="button"
             className="briefly-sidebar-toggle"
@@ -101,10 +116,10 @@ export function Sidebar() {
             aria-label={pinned ? "Desfijar menú" : "Fijar menú expandido"}
             aria-pressed={pinned}
           >
-            <CIcon icon={pinned ? cilChevronDoubleLeft : cilChevronDoubleRight} size="sm" />
+            {pinned ? <ChevronsLeft className="h-4 w-4" /> : <ChevronsRight className="h-4 w-4" />}
           </button>
-        </CSidebarHeader>
-      </CSidebar>
+        </div>
+      </aside>
     </div>
   );
 }

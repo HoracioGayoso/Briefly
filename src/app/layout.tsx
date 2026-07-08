@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-// CoreUI primero, globals.css (Tailwind + tokens/overrides propios) después,
-// para que nuestras clases (.fab, .briefly-card, .notif-bell-btn, etc.)
-// puedan ganarle en cascada a las de CoreUI cuando compiten por la misma
-// propiedad (ej. .btn y .card fuerzan su propio border-radius/flex-direction).
-import "@coreui/coreui/dist/css/coreui.min.css";
+// CoreUI ahora se importa DENTRO de globals.css con `layer(coreui)` (capa de
+// baja prioridad), no acá, así las utilidades de Tailwind le ganan en la cascada.
+// Nuestras clases .briefly-* siguen sin capa, por lo que también le ganan.
 import "./globals.css";
 
 const inter = Inter({

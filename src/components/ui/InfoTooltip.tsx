@@ -1,27 +1,30 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CTooltip } from "@coreui/react";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 interface InfoTooltipProps {
-  /** Contenido del tooltip. Se fuerza a una sola línea (ver .briefly-tooltip-nowrap). */
+  /** Contenido del tooltip. Se muestra a la derecha del ícono. */
   content: ReactNode;
 }
 
 /**
- * Ícono redondo de info (fondo azul de acento, "i" blanca) con tooltip al
- * hacer hover. El set cil* de @coreui/icons no tiene una variante "círculo
- * relleno" (cilInfo es sólo el trazo de un cuadrado con una i adentro, sin
- * fondo), así que el círculo se arma con un <span> propio en vez de un
- * ícono de la librería, manteniendo el mismo azul de acento (--color-accent)
- * que el resto de la UI.
+ * Ícono redondo de info (fondo azul de acento, "i" blanca) con tooltip a la
+ * derecha al hacer hover/focus. Migrado de <CTooltip> de CoreUI a la primitiva
+ * Tooltip (shadcn/Radix). El círculo se arma con un <span> propio porque el set
+ * cil* no tiene una variante "círculo relleno".
  */
 export function InfoTooltip({ content }: InfoTooltipProps) {
   return (
-    <CTooltip content={content} className="briefly-tooltip-nowrap">
-      <span tabIndex={0} role="img" aria-label="Información" className="briefly-info-badge">
-        i
-      </span>
-    </CTooltip>
+    <TooltipProvider delayDuration={150}>
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          <span tabIndex={0} role="img" aria-label="Información" className="briefly-info-badge">
+            i
+          </span>
+        </TooltipTrigger>
+        <TooltipContent side="right">{content}</TooltipContent>
+      </TooltipRoot>
+    </TooltipProvider>
   );
 }

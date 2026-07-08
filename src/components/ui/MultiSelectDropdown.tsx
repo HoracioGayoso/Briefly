@@ -1,6 +1,12 @@
 "use client";
 
-import { CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CFormCheck } from "@coreui/react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 interface MultiSelectDropdownProps {
   label: string;
@@ -12,8 +18,8 @@ interface MultiSelectDropdownProps {
 
 /**
  * Dropdown de selección múltiple con checkboxes (Fuero / Proceso / Estado en
- * el filtro de expedientes). Antes eran 3 bloques de JSX casi idénticos
- * copiados y pegados; se unifican acá para no repetir el mismo markup.
+ * el filtro de expedientes). Migrado de CoreUI a shadcn/Radix: el menú se
+ * mantiene abierto al tildar (onSelect preventDefault) para elegir varios.
  */
 export function MultiSelectDropdown({
   label,
@@ -33,27 +39,28 @@ export function MultiSelectDropdown({
   return (
     <div className="flex items-center gap-2 min-w-0">
       <span className="text-sm whitespace-nowrap">{label}:</span>
-      <CDropdown autoClose={false} style={{ width }}>
-        <CDropdownToggle
-          color="secondary"
-          variant="outline"
-          className="w-100 text-start d-flex align-items-center justify-content-between"
-        >
-          <span className="truncate-cell">{toggleText}</span>
-        </CDropdownToggle>
-        <CDropdownMenu>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" className="justify-between font-normal" style={{ width }}>
+            <span className="truncate-cell">{toggleText}</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4 shrink-0 opacity-60">
+              <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" style={{ width }}>
           {options.map((option) => (
-            <CDropdownItem key={option} as="label" className="d-flex align-items-center gap-2">
-              <CFormCheck
-                checked={selected.includes(option)}
-                onChange={() => toggleOption(option)}
-                className="m-0"
-              />
+            <DropdownMenuCheckboxItem
+              key={option}
+              checked={selected.includes(option)}
+              onCheckedChange={() => toggleOption(option)}
+              onSelect={(e) => e.preventDefault()}
+            >
               {option}
-            </CDropdownItem>
+            </DropdownMenuCheckboxItem>
           ))}
-        </CDropdownMenu>
-      </CDropdown>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }

@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { CTable, CTableHead, CTableRow, CTableHeaderCell, CTableBody } from "@coreui/react";
+import { Table, TableHeader, TableBody, TableRow, TableHead } from "@/components/ui/table";
 import { ExpedienteRow } from "./ExpedienteRow";
 import { Pagination } from "@/components/ui/Pagination";
 import { MOCK_EXPEDIENTES } from "./types";
 
 const COLUMNS = [
-  { label: "Carátula", width: "38%" },
+  { label: "Carátula", width: "30%" },
   { label: "Expediente", width: "14%" },
-  { label: "Fuero", width: "13%" },
-  { label: "Proceso", width: "13%" },
-  { label: "Estado", width: "15%" },
-  { label: "Acciones", width: "7%" },
+  { label: "Fuero", width: "12%" },
+  { label: "Proceso", width: "12%" },
+  { label: "Estado", width: "20%" },
+  { label: "Acciones", width: "12%" },
 ];
 
 export function ExpedientesTable() {
@@ -21,25 +21,25 @@ export function ExpedientesTable() {
   return (
     <div className="briefly-card flex flex-col flex-1" style={{ padding: 0, overflow: "hidden" }}>
       <div className="flex-1 overflow-y-auto">
-        <CTable hover responsive style={{ tableLayout: "fixed" }}>
-          <CTableHead>
-            <CTableRow>
+        <Table style={{ tableLayout: "fixed" }}>
+          <TableHeader>
+            <TableRow>
               {COLUMNS.map((col) => (
-                <CTableHeaderCell key={col.label} style={{ width: col.width }}>
+                <TableHead key={col.label} style={{ width: col.width }}>
                   {col.label}
-                </CTableHeaderCell>
+                </TableHead>
               ))}
-            </CTableRow>
-          </CTableHead>
-          <CTableBody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {MOCK_EXPEDIENTES.map((expediente) => (
               <ExpedienteRow key={expediente.id} {...expediente} />
             ))}
-          </CTableBody>
-        </CTable>
+          </TableBody>
+        </Table>
       </div>
 
-      <div className="d-flex justify-content-center py-3">
+      <div className="flex justify-center py-3">
         <Pagination currentPage={page} totalPages={10} onPageChange={setPage} />
       </div>
     </div>
