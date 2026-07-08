@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Procesos</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item is-active"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main">
+    <div class="topbar">
+      <h1 class="text-h1">Procesos</h1>
+      <div class="flex items-center gap-md">
+        <a href="perfil.html" class="avatar avatar-md">HG</a>
+      </div>
+    </div>
+    <p class="text-secondary" style="margin-top:-8px; margin-bottom:16px;">Los tipos de proceso jurídico (ordinario, sumarísimo, ejecutivo, etc.) se asocian a un fuero y se usan al crear un expediente.</p>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="data-table">
+        <thead><tr><th style="width:40%">Nombre</th><th style="width:30%">Fuero asociado</th><th style="width:20%">Expedientes</th><th style="width:10%">Acciones</th></tr></thead>
+        <tbody>
+          <tr><td>Proc A — Ordinario</td><td>Fuero A — Civil</td><td>7</td><td><button class="btn-ghost btn btn-sm" data-modal-open="modal-nuevo-proceso"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+          <tr class="is-hover"><td>Proc B — Sumarísimo</td><td>Fuero B — Comercial</td><td>4</td><td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+          <tr><td>Proc C — Ejecutivo</td><td>Fuero C — Laboral</td><td>2</td><td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Patrón único de alta: FAB, igual que expedientes.html / fueros.html
+         (no un botón en el topbar). Acá abre una modal en vez de navegar. -->
+    <button class="fab" data-modal-open="modal-nuevo-proceso" title="Nuevo proceso"><i data-icon="plus" data-icon-size="25"></i></button>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-nuevo-proceso">
+  <div class="modal">
+    <div class="modal-header"><span class="text-h3">Nuevo proceso</span><button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button></div>
+    <div class="flex-col gap-sm">
+      <div class="field"><span class="field-label">Nombre del proceso</span><input class="simple-input is-focus" placeholder="Ej: Ordinario" autofocus></div>
+      <div class="field">
+        <span class="field-label">Fuero asociado</span>
+        <div class="dropdown" data-dropdown>
+          <button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate">Seleccione un fuero...</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item">Fuero A — Civil</div>
+            <div class="dropdown-item">Fuero B — Comercial</div>
+            <div class="dropdown-item">Fuero C — Laboral</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button class="btn btn-primary" data-modal-close>Guardar proceso</button>
+    </div>
+  </div>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

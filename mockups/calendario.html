@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Calendario de vencimientos</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .cal-cell { border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); min-height: 92px; padding: 6px; font-size: 12.5px; }
+  .cal-cell.is-today { border-color: var(--color-accent); }
+  .cal-cell .day-num { font-weight: 600; margin-bottom: 4px; }
+  .cal-cell.is-muted { opacity: .35; }
+  .cal-event { background: var(--color-danger); color:#fff; border-radius:4px; padding:2px 5px; margin-bottom:3px; font-size:11px; }
+  .cal-event.warning { background: var(--color-warning); color:#2a1c00; }
+  .cal-event.success { background: var(--color-success); }
+  .cal-header-row { display:grid; grid-template-columns: repeat(7,1fr); gap:6px; margin-bottom:6px; }
+  .cal-header-row div { text-align:center; font-size:12px; color:var(--color-text-secondary); }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item is-active"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main">
+    <div class="topbar">
+      <h1 class="text-h1">Calendario de vencimientos</h1>
+    </div>
+
+    <div class="flex items-center justify-between" style="margin-bottom:12px;">
+      <div class="flex items-center gap-sm">
+        <button class="page-item"><i data-icon="chevron-left" data-icon-size="16"></i></button>
+        <span class="text-h3">Julio 2026</span>
+        <button class="page-item"><i data-icon="chevron-right" data-icon-size="16"></i></button>
+      </div>
+      <div class="flex gap-sm">
+        <span class="badge badge-danger" style="min-width:auto; padding:4px 10px;">Vencimiento</span>
+        <span class="badge badge-warning" style="min-width:auto; padding:4px 10px;">Audiencia</span>
+        <span class="badge badge-success" style="min-width:auto; padding:4px 10px;">Tarea propia</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cal-header-row"><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div></div>
+      <div class="cal-grid">
+        <div class="cal-cell is-muted"><div class="day-num">29</div></div>
+        <div class="cal-cell is-muted"><div class="day-num">30</div></div>
+        <div class="cal-cell"><div class="day-num">1</div></div>
+        <div class="cal-cell"><div class="day-num">2</div></div>
+        <div class="cal-cell"><div class="day-num">3</div></div>
+        <div class="cal-cell"><div class="day-num">4</div></div>
+        <div class="cal-cell"><div class="day-num">5</div></div>
+        <div class="cal-cell is-today"><div class="day-num">6</div><div class="cal-event">Contestar demanda EXP-003</div></div>
+        <div class="cal-cell"><div class="day-num">7</div></div>
+        <div class="cal-cell"><div class="day-num">8</div></div>
+        <div class="cal-cell"><div class="day-num">9</div></div>
+        <div class="cal-cell"><div class="day-num">10</div><div class="cal-event warning">Audiencia EXP-002</div></div>
+        <div class="cal-cell"><div class="day-num">11</div></div>
+        <div class="cal-cell"><div class="day-num">12</div><div class="cal-event warning">Vto. traslado EXP-005</div></div>
+        <div class="cal-cell"><div class="day-num">13</div></div>
+        <div class="cal-cell"><div class="day-num">14</div></div>
+        <div class="cal-cell"><div class="day-num">15</div></div>
+        <div class="cal-cell"><div class="day-num">16</div></div>
+        <div class="cal-cell"><div class="day-num">17</div></div>
+        <div class="cal-cell"><div class="day-num">18</div><div class="cal-event success">Entrega informe cliente</div></div>
+        <div class="cal-cell"><div class="day-num">19</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <span class="text-h3">Próximos 7 días</span>
+      <div style="margin-top:8px;">
+        <div class="mini-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--color-border-subtle);"><span class="text-body-sm">Contestar demanda — EXP-003</span><span class="badge badge-danger" style="min-width:auto; padding:4px 10px;">Hoy</span></div>
+        <div class="mini-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--color-border-subtle);"><span class="text-body-sm">Audiencia conciliatoria — EXP-002</span><span class="badge badge-warning" style="min-width:auto; padding:4px 10px;">10/07</span></div>
+        <div class="mini-row" style="display:flex; justify-content:space-between; padding:8px 0;"><span class="text-body-sm">Vencimiento traslado — EXP-005</span><span class="badge badge-warning" style="min-width:auto; padding:4px 10px;">12/07</span></div>
+      </div>
+    </div>
+
+    <!-- Patrón único de alta: FAB, igual que expedientes.html (no un botón
+         en el topbar). Acá abre una modal en vez de navegar. -->
+    <button class="fab" data-modal-open="modal-nuevo-vencimiento" title="Nuevo vencimiento"><i data-icon="plus" data-icon-size="25"></i></button>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-nuevo-vencimiento">
+  <div class="modal">
+    <div class="modal-header"><span class="text-h3">Nuevo vencimiento</span><button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button></div>
+    <div class="flex-col gap-sm">
+      <div class="field"><span class="field-label">Descripción</span><input class="simple-input is-focus" placeholder="Ej: Contestar demanda"></div>
+      <div class="field"><span class="field-label">Expediente asociado</span>
+        <div class="dropdown" data-dropdown>
+          <button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate">EXP-001 — Gayoso vs Planiscig</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu"><div class="dropdown-item">EXP-001 — Gayoso vs Planiscig</div><div class="dropdown-item">EXP-002</div><div class="dropdown-item">EXP-003</div></div>
+        </div>
+      </div>
+      <div class="field"><span class="field-label">Fecha</span><input class="simple-input" type="date"></div>
+      <div class="field"><span class="field-label">Tipo</span>
+        <div class="dropdown" data-dropdown>
+          <button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate">Vencimiento procesal</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu"><div class="dropdown-item is-selected">Vencimiento procesal</div><div class="dropdown-item">Audiencia</div><div class="dropdown-item">Tarea propia</div></div>
+        </div>
+      </div>
+      <div class="checkbox-row"><span class="checkbox-box is-checked"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span><span class="text-body-sm">Notificarme 2 días antes</span></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" data-modal-close>Cancelar</button><button class="btn btn-primary" data-modal-close>Guardar</button></div>
+  </div>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Fueros</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item is-active"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main">
+    <div class="topbar">
+      <h1 class="text-h1">Fueros</h1>
+      <div class="flex items-center gap-md">
+        <a href="perfil.html" class="avatar avatar-md">HG</a>
+      </div>
+    </div>
+    <p class="text-secondary" style="margin-top:-8px; margin-bottom:16px;">Los fueros clasifican tus expedientes (Civil, Comercial, Laboral, etc.) y se usan como filtro en el listado.</p>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="data-table">
+        <thead><tr><th style="width:60%">Nombre</th><th style="width:25%">Expedientes asociados</th><th style="width:15%">Acciones</th></tr></thead>
+        <tbody>
+          <tr><td>Fuero A — Civil</td><td>12</td><td><button class="btn-ghost btn btn-sm" data-modal-open="modal-nuevo-fuero"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+          <tr class="is-hover"><td>Fuero B — Comercial</td><td>8</td><td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+          <tr><td>Fuero C — Laboral</td><td>5</td><td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+          <tr><td>Fuero D — Familia</td><td>3</td><td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+          <tr><td>Fuero E — Contencioso Administrativo</td><td>1</td><td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Patrón único de alta: FAB, igual que expedientes.html (no un botón
+         en el topbar). Acá abre una modal en vez de navegar. -->
+    <button class="fab" data-modal-open="modal-nuevo-fuero" title="Nuevo fuero"><i data-icon="plus" data-icon-size="25"></i></button>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-nuevo-fuero">
+  <div class="modal">
+    <div class="modal-header"><span class="text-h3">Nuevo fuero</span><button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button></div>
+    <div class="field"><span class="field-label">Nombre del fuero</span><input class="simple-input is-focus" placeholder="Ej: Civil" autofocus></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button class="btn btn-primary" data-modal-close>Guardar fuero</button>
+    </div>
+  </div>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

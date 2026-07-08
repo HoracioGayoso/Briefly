@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Dashboard</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .dash-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }
+  .mini-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border-subtle); }
+  .mini-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item is-active"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main">
+    <div class="topbar">
+      <h1 class="text-h1">Hola, Horacio 👋</h1>
+      <div class="flex items-center gap-md">
+        <div class="dropdown" data-dropdown>
+          <button class="notif-bell-btn" data-dropdown-toggle><i data-icon="bell" data-icon-size="22"></i><span class="notif-badge">3</span></button>
+          <div class="dropdown-menu right" style="width:300px;">
+            <div class="notif-item"><span class="notif-dot"></span><span class="text-body-sm">Nuevo expediente agregado</span></div>
+            <div class="notif-item"><span class="notif-dot"></span><span class="text-body-sm">EXP-002 pasó a "Pendiente"</span></div>
+          </div>
+        </div>
+        <a href="perfil.html" class="avatar avatar-md">HG</a>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-value">18</div><div class="stat-label">Expedientes activos</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:var(--color-danger);">3</div><div class="stat-label">Urgentes</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:var(--color-warning);">5</div><div class="stat-label">Vencimientos esta semana</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:var(--color-info);">2</div><div class="stat-label">Listos para cobro</div></div>
+      <div class="stat-card"><div class="stat-value">$ 480.000</div><div class="stat-label">Honorarios pendientes de cobro</div></div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="card">
+        <div class="flex justify-between items-center" style="margin-bottom:8px;">
+          <span class="text-h3">Próximos vencimientos</span>
+          <a href="calendario.html" class="text-caption text-accent">Ver calendario</a>
+        </div>
+        <div class="mini-row"><span class="text-body-sm">Contestar demanda — EXP-003</span><span class="badge badge-danger" style="min-width:auto; padding:4px 10px;">Mañana</span></div>
+        <div class="mini-row"><span class="text-body-sm">Audiencia conciliatoria — EXP-002</span><span class="badge badge-warning" style="min-width:auto; padding:4px 10px;">En 4 días</span></div>
+        <div class="mini-row"><span class="text-body-sm">Vencimiento traslado — EXP-005</span><span class="badge badge-warning" style="min-width:auto; padding:4px 10px;">En 6 días</span></div>
+      </div>
+
+      <div class="card">
+        <div class="flex justify-between items-center" style="margin-bottom:8px;">
+          <span class="text-h3">Actividad reciente</span>
+        </div>
+        <div class="mini-row"><span class="text-body-sm text-secondary">Archivaste EXP-009</span><span class="text-caption">Hoy</span></div>
+        <div class="mini-row"><span class="text-body-sm text-secondary">Subiste 2 documentos a EXP-004</span><span class="text-caption">Ayer</span></div>
+        <div class="mini-row"><span class="text-body-sm text-secondary">Creaste el cliente "Planiscig SRL"</span><span class="text-caption">Ayer</span></div>
+      </div>
+
+      <div class="card" style="grid-column: span 2;">
+        <div class="flex justify-between items-center" style="margin-bottom:8px;">
+          <span class="text-h3">Expedientes por estado</span>
+        </div>
+        <div class="flex gap-md flex-wrap">
+          <span class="badge badge-success">Al día · 9</span>
+          <span class="badge badge-warning">Pendiente · 4</span>
+          <span class="badge badge-danger">Urgente · 3</span>
+          <span class="badge badge-secondary">Inactivo · 6</span>
+          <span class="badge badge-info">Listo para cobro · 2</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

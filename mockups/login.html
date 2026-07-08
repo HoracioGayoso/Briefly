@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Ingresar</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .auth-shell { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .auth-card { width: 100%; max-width: 400px; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 32px; }
+  .auth-brand { text-align: center; margin-bottom: 24px; }
+  .auth-brand .text-h1 { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="auth-shell">
+  <form class="auth-card" onsubmit="event.preventDefault(); location.href='expedientes.html';">
+    <div class="auth-brand">
+      <div class="text-h1">Briefly</div>
+      <div class="text-secondary text-body-sm" style="margin-top:4px;">Gestión de casos legales</div>
+    </div>
+
+    <div class="flex-col gap-sm">
+      <div class="field">
+        <span class="field-label"><i data-icon="mail" class="icon"></i>Correo electrónico</span>
+        <input class="simple-input" type="email" placeholder="tu@estudio.com" required>
+      </div>
+      <div class="field">
+        <span class="field-label"><i data-icon="lock" class="icon"></i>Contraseña</span>
+        <input class="simple-input" type="password" placeholder="••••••••" required>
+      </div>
+      <div class="flex justify-between items-center" style="margin-top:4px;">
+        <div class="checkbox-row">
+          <span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>
+          <span class="text-body-sm">Recordarme</span>
+        </div>
+        <a href="#" class="text-body-sm text-accent">¿Olvidaste tu contraseña?</a>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center;">Ingresar</button>
+
+    <div class="text-body-sm text-secondary" style="text-align:center; margin-top:20px;">
+      ¿No tenés cuenta? <a href="registro.html" class="text-accent">Registrate como abogado</a>
+    </div>
+  </form>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

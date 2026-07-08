@@ -1,5 +1,4 @@
-/* Table.css */
-.custom-table-hover {
-    --cui-table-hover-bg: #3d99f5;
-    --cui-table-hover-color: #ffffff;
-  }
+/* Reemplazado por los tokens de src/app/globals.css (etapa 1). Ya no se
+   importa desde ningún lado; se deja vacío porque el entorno de esta sesión
+   no pudo borrar archivos del proyecto. Se puede eliminar con seguridad
+   (`git rm`). */

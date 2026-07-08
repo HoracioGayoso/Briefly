@@ -1,18 +1,7 @@
-import Sidebar from "@/components/Sidebar";
-import React from "react";
-import { Inter } from "next/font/google";
+import type React from "react";
 
-const inter = Inter({
-    variable: "--font-inter",
-    subsets: ["latin"],
-});
+// Página de alta standalone, sin sidebar ni topbar — igual que
+// mockups/expediente-nuevo.html (formulario centrado a pantalla completa).
 export default function Layout({ children }: { children: React.ReactNode }) {
-    return (
-        <div className={`${inter.variable} antialiased flex h-screen`}>
-            <Sidebar />
-            <main className="flex-1 p-8 flex flex-col overflow-auto">
-                {children}
-            </main>
-        </div>
-    );
+  return <div className="min-h-screen flex flex-col overflow-auto">{children}</div>;
 }

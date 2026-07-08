@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Clientes</title>
+<link rel="stylesheet" href="shared.css">
+<style>.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item is-active"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main">
+    <div class="topbar">
+      <h1 class="text-h1">Clientes</h1>
+    </div>
+
+    <div class="tabs" data-tabs>
+      <div class="tab-item is-active" data-tab="listado">Listado</div>
+      <div class="tab-item" data-tab="ficha">Ficha: Planiscig S.R.L.</div>
+    </div>
+
+    <div data-tab-panel="listado" class="tab-panel is-active">
+      <div class="card" style="padding:0; overflow:hidden;">
+        <table class="data-table">
+          <thead><tr><th style="width:35%">Nombre</th><th style="width:20%">Tipo</th><th style="width:20%">Contacto</th><th style="width:15%">Expedientes</th><th style="width:10%">Acciones</th></tr></thead>
+          <tbody>
+            <tr onclick="document.querySelector('[data-tab=ficha]').click()" style="cursor:pointer;">
+              <td><div class="flex items-center gap-sm"><div class="avatar avatar-sm">PS</div>Planiscig S.R.L.</div></td>
+              <td>Persona jurídica</td>
+              <td>contacto@planiscig.com</td>
+              <td>1</td>
+              <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+            </tr>
+            <tr class="is-hover">
+              <td><div class="flex items-center gap-sm"><div class="avatar avatar-sm">MF</div>Fernández, María</div></td>
+              <td>Persona física</td>
+              <td>maria.fdez@mail.com</td>
+              <td>1</td>
+              <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+            </tr>
+            <tr>
+              <td><div class="flex items-center gap-sm"><div class="avatar avatar-sm">CS</div>Constructora Sur SA</div></td>
+              <td>Persona jurídica</td>
+              <td>legales@construsur.com</td>
+              <td>1</td>
+              <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+            </tr>
+            <tr>
+              <td><div class="flex items-center gap-sm"><div class="avatar avatar-sm">JR</div>Rodríguez, Juan</div></td>
+              <td>Persona física</td>
+              <td>juan.rodriguez@mail.com</td>
+              <td>1</td>
+              <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div data-tab-panel="ficha" class="tab-panel">
+      <div class="flex items-center gap-md" style="margin-bottom:16px;">
+        <div class="avatar avatar-lg">PS</div>
+        <div>
+          <div class="text-h2">Planiscig S.R.L.</div>
+          <div class="text-secondary text-body-sm">Persona jurídica · CUIT 30-71234567-8</div>
+        </div>
+      </div>
+      <div class="card grid-2">
+        <div><span class="text-caption">Email</span><div class="text-body-sm">contacto@planiscig.com</div></div>
+        <div><span class="text-caption">Teléfono</span><div class="text-body-sm">+54 11 4567-8901</div></div>
+        <div style="grid-column: span 2;"><span class="text-caption">Domicilio</span><div class="text-body-sm">Av. Libertador 4500, CABA</div></div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <span class="text-h3">Expedientes de este cliente</span>
+        <div class="doc-row" style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--color-border-subtle);">
+          <a href="expediente-detalle.html" class="text-accent text-body-sm">EXP-001 — Gayoso vs Planiscig: Patentamiento sitio web</a>
+          <span class="badge badge-success" style="min-width:auto; padding:4px 10px;">Al día</span>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <span class="text-h3">Honorarios</span>
+        <div style="display:flex; justify-content:space-between; padding:8px 0;"><span class="text-body-sm">Honorarios primera instancia</span><span class="text-body-sm">$ 250.000 <span class="badge badge-warning" style="min-width:auto; padding:2px 8px; margin-left:6px;">Pendiente</span></span></div>
+      </div>
+    </div>
+
+    <!-- Patrón único de alta: FAB, igual que expedientes.html (no un botón
+         en el topbar). Acá abre una modal en vez de navegar. -->
+    <button class="fab" data-modal-open="modal-nuevo-cliente" title="Nuevo cliente"><i data-icon="plus" data-icon-size="25"></i></button>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-nuevo-cliente">
+  <div class="modal">
+    <div class="modal-header"><span class="text-h3">Nuevo cliente</span><button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button></div>
+    <div class="flex-col gap-sm">
+      <div class="field"><span class="field-label">Tipo</span>
+        <div class="dropdown" data-dropdown><button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate">Persona física</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu"><div class="dropdown-item is-selected">Persona física</div><div class="dropdown-item">Persona jurídica</div></div>
+        </div>
+      </div>
+      <div class="field"><span class="field-label">Nombre / Razón social</span><input class="simple-input is-focus"></div>
+      <div class="field"><span class="field-label">Email</span><input class="simple-input"></div>
+      <div class="field"><span class="field-label">Teléfono</span><input class="simple-input"></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" data-modal-close>Cancelar</button><button class="btn btn-primary" data-modal-close>Guardar cliente</button></div>
+  </div>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>
