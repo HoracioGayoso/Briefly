@@ -301,6 +301,16 @@ body {
   color: #fff;
 }
 
+/* Variante destructiva (ej. "Cerrar sesión"): texto rojo, y en highlight fondo
+   rojo. Va después del rule de arriba para ganarle (misma especificidad). */
+.briefly-menu-item-danger {
+  color: var(--color-danger);
+}
+.briefly-menu-item-danger[data-highlighted] {
+  background: var(--color-danger);
+  color: #fff;
+}
+
 /* ---- Checkbox (shadcn/Radix): TODO el color va acá y no en utilidades de
    Tailwind, porque en este proyecto las utilidades (bg-transparent, border-*)
    le ganan a las reglas .briefly-* y pisaban el estado checked. data-state lo

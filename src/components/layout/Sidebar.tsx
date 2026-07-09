@@ -11,6 +11,7 @@ import {
   DollarSign,
   Scale,
   ListPlus,
+  Building2,
   CreditCard,
   ChevronsLeft,
   ChevronsRight,
@@ -34,6 +35,9 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/honorarios", label: "Honorarios", icon: DollarSign },
   { href: "/fueros", label: "Fueros", icon: Scale },
   { href: "/procesos", label: "Procesos", icon: ListPlus },
+  // TODO: falta pantalla de Estudio (datos del despacho, equipo). Por ahora
+  // sólo el link, como el resto de los ítems aún no implementados.
+  { href: "/estudio", label: "Estudio", icon: Building2 },
   { href: "/suscripcion", label: "Suscripción", icon: CreditCard },
 ];
 

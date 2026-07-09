@@ -9,17 +9,45 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import type { Expediente } from "./types";
 
-export function ExpedienteRow({ caratula, numeroExpediente, fuero, proceso, estado }: Expediente) {
+export function ExpedienteRow({
+  caratula,
+  numeroExpediente,
+  fuero,
+  proceso,
+  estado,
+  archivado,
+}: Expediente) {
   return (
-    <TableRow className="hover:bg-(--color-accent) hover:text-white">
+    <TableRow
+      className={cn(
+        "group hover:bg-(--color-accent) hover:text-white",
+        // Fila atenuada + ícono junto a la carátula: dos señales que se
+        // detectan tanto al escanear la tabla entera como leyendo una sola
+        // columna. No se usa color (el Estado ya lo usa con otro sentido).
+        archivado && "text-(--color-text-secondary)"
+      )}
+    >
       <TableCell>
-        <span className="truncate-cell" title={caratula}>
-          {caratula}
+        <span className="flex min-w-0 items-center gap-1.5">
+          {archivado && (
+            <Archive
+              // group-hover: el ícono tiene su propio color fijo (no hereda del
+              // <tr>), así que sin esto quedaría gris apagado sobre el fondo
+              // azul de hover — bajo contraste. Pasa a blanco igual que el
+              // resto del texto de la fila.
+              className="h-3.5 w-3.5 shrink-0 text-(--color-text-tertiary) group-hover:text-white"
+              aria-hidden="true"
+            />
+          )}
+          <span className="truncate-cell" title={archivado ? `${caratula} (archivado)` : caratula}>
+            {caratula}
+          </span>
         </span>
       </TableCell>
-      <TableCell>{numeroExpediente}</TableCell>
+      <TableCell className="tabular-nums">{numeroExpediente}</TableCell>
       <TableCell>{fuero}</TableCell>
       <TableCell>{proceso}</TableCell>
       <TableCell>

@@ -12,55 +12,46 @@ export interface Expediente {
   fuero: string;
   proceso: string;
   estado: EstadoExpediente;
+  archivado?: boolean;
 }
-
-// TODO(etapa 2, RF-12): reemplazar por datos reales desde Supabase
-// (listado paginado server-side). Por ahora son datos de ejemplo, igual
-// que en el prototipo previo, para poder validar el layout.
-export const MOCK_EXPEDIENTES: Expediente[] = [
-  {
-    id: "EXP-001",
-    caratula:
-      "Gayoso vs Planiscig: Patentamiento sitio web aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    numeroExpediente: "EXP-001",
-    fuero: "Fuero A",
-    proceso: "Proc A",
-    estado: { label: "Al día", color: "success" },
-  },
-  {
-    id: "EXP-002",
-    caratula: "Gayoso vs Planiscig: Patentamiento sitio web",
-    numeroExpediente: "EXP-002",
-    fuero: "Fuero B",
-    proceso: "Proc B",
-    estado: { label: "Pendiente", color: "warning" },
-  },
-  {
-    id: "EXP-003",
-    caratula: "Gayoso vs Planiscig: Patentamiento sitio web",
-    numeroExpediente: "EXP-003",
-    fuero: "Fuero C",
-    proceso: "Proc C",
-    estado: { label: "Urgente", color: "danger" },
-  },
-  {
-    id: "EXP-004",
-    caratula: "Gayoso vs Planiscig: Patentamiento sitio web",
-    numeroExpediente: "EXP-004",
-    fuero: "Fuero D",
-    proceso: "Proc D",
-    estado: { label: "Inactivo", color: "secondary" },
-  },
-  {
-    id: "EXP-005",
-    caratula: "Gayoso vs Planiscig: Patentamiento sitio web",
-    numeroExpediente: "EXP-005",
-    fuero: "Fuero E",
-    proceso: "Proc E",
-    estado: { label: "Listo para cobro", color: "info" },
-  },
-];
 
 export const FUERO_OPTIONS = ["Fuero A", "Fuero B", "Fuero C", "Fuero D", "Fuero E", "Fuero F"];
 export const PROCESO_OPTIONS = ["Proc A", "Proc B", "Proc C"];
-export const ESTADO_OPTIONS = ["Al día", "Pendiente", "Urgente"];
+export const ESTADO_OPTIONS = ["Al día", "Pendiente", "Urgente", "Inactivo", "Listo para cobro"];
+
+const ESTADOS: EstadoExpediente[] = [
+  { label: "Al día", color: "success" },
+  { label: "Pendiente", color: "warning" },
+  { label: "Urgente", color: "danger" },
+  { label: "Inactivo", color: "secondary" },
+  { label: "Listo para cobro", color: "info" },
+];
+
+const CARATULAS = [
+  "Gayoso c/ Planiscig s/ Daños y perjuicios",
+  "Fernández, María c/ Obra Social s/ Amparo",
+  "Rodríguez SA c/ AFIP s/ Repetición",
+  "Sucesión de Juan Pérez",
+  "López, Carlos c/ Empleador SRL s/ Despido",
+  "Consorcio Av. Rivadavia 1234 c/ García s/ Ejecución de expensas",
+  "Martínez, Ana s/ Divorcio",
+  "Industrias del Sur SA c/ Proveedora Norte SA s/ Ordinario",
+  "Gómez, Pedro c/ Aseguradora s/ Cumplimiento de contrato",
+  "Torres, Lucía c/ Municipalidad s/ Contencioso administrativo",
+];
+
+// TODO(etapa 2, RF-12): reemplazar por datos reales desde Supabase (listado
+// paginado server-side). Se generan ~24 registros de ejemplo para que la
+// paginación, el orden y el contador tengan sentido en el prototipo.
+export const MOCK_EXPEDIENTES: Expediente[] = Array.from({ length: 24 }, (_, i) => {
+  const n = i + 1;
+  return {
+    id: `EXP-${String(n).padStart(3, "0")}`,
+    caratula: CARATULAS[i % CARATULAS.length],
+    numeroExpediente: `EXP-${String(n).padStart(3, "0")}`,
+    fuero: FUERO_OPTIONS[i % FUERO_OPTIONS.length],
+    proceso: PROCESO_OPTIONS[i % PROCESO_OPTIONS.length],
+    estado: ESTADOS[i % ESTADOS.length],
+    archivado: i % 7 === 6,
+  };
+});

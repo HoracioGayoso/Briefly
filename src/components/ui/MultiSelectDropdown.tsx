@@ -41,7 +41,12 @@ export function MultiSelectDropdown({
       <span className="text-sm whitespace-nowrap">{label}:</span>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="justify-between font-normal" style={{ width }}>
+          <Button
+            variant="outline"
+            aria-label={label}
+            className="justify-between font-normal"
+            style={{ width }}
+          >
             <span className="truncate-cell">{toggleText}</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4 shrink-0 opacity-60">
               <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />

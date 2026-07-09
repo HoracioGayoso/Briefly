@@ -50,13 +50,15 @@ export function FuerosSection() {
 
   return (
     <>
-      <Topbar
-        title="Fueros"
-        titleInfo="Los fueros clasifican tus expedientes (Civil, Comercial, Laboral, etc.) y se usan como filtro en el listado."
-      />
+      {/* <main> ya no pone padding (ver AppShell): cada pantalla pone el suyo. */}
+      <div className="p-4 md:p-6">
+        <Topbar
+          title="Fueros"
+          titleInfo="Los fueros clasifican tus expedientes (Civil, Comercial, Laboral, etc.) y se usan como filtro en el listado."
+        />
 
-      <div className="briefly-card" style={{ padding: 0, overflow: "hidden" }}>
-        <CTable hover responsive style={{ tableLayout: "fixed" }}>
+        <div className="briefly-card" style={{ padding: 0, overflow: "hidden" }}>
+          <CTable hover responsive style={{ tableLayout: "fixed" }}>
           <CTableHead>
             <CTableRow>
               {COLUMNS.map((col) => (
@@ -71,7 +73,8 @@ export function FuerosSection() {
               <FueroRow key={fuero.id} {...fuero} onEdit={openEdit} />
             ))}
           </CTableBody>
-        </CTable>
+          </CTable>
+        </div>
       </div>
 
       <FueroFormModal

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Avatar } from "@/components/ui/avatar";
+import { UserMenu } from "@/components/layout/UserMenu";
 import { NotifBell } from "@/components/ui/NotifBell";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
 
@@ -29,15 +29,13 @@ export function Topbar({ title, titleInfo, actions, userInitials = "HG" }: Topba
   return (
     <div className="app-topbar">
       <div className="flex items-center gap-2.5">
-        <h1 className="text-2xl font-bold m-0">{title}</h1>
+        <h1 className="text-xl font-semibold m-0">{title}</h1>
         {titleInfo && <InfoTooltip content={titleInfo} />}
       </div>
       <div className="app-topbar-actions">
         {actions}
         <NotifBell />
-        <Avatar title="Mi perfil" className="h-11 w-11 text-base">
-          {userInitials}
-        </Avatar>
+        <UserMenu userInitials={userInitials} />
       </div>
     </div>
   );

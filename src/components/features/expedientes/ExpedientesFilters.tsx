@@ -1,110 +1,76 @@
 "use client";
 
-import { useState } from "react";
 import { Search } from "lucide-react";
 import { MultiSelectDropdown } from "@/components/ui/MultiSelectDropdown";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FUERO_OPTIONS, PROCESO_OPTIONS, ESTADO_OPTIONS } from "./types";
 
 export interface ExpedientesFiltersValue {
-  archivados: boolean;
+  search: string;
   fuero: string[];
   proceso: string[];
   estado: string[];
-  caratula: string;
-  numeroExpediente: string;
+  archivados: boolean;
 }
 
-const EMPTY_FILTERS: ExpedientesFiltersValue = {
-  archivados: false,
-  fuero: [],
-  proceso: [],
-  estado: [],
-  caratula: "",
-  numeroExpediente: "",
-};
-
 interface ExpedientesFiltersProps {
-  onSearch?: (filters: ExpedientesFiltersValue) => void;
+  value: ExpedientesFiltersValue;
+  onChange: (next: ExpedientesFiltersValue) => void;
 }
 
 /**
- * Filtros combinables del listado de expedientes (RF-13). Por ahora sólo
- * mantiene el estado local y expone `onSearch`; la Etapa 2 lo conecta a la
- * query real contra Supabase.
+ * Toolbar de filtros del listado (RF-13). Componente controlado: el estado vive
+ * en ExpedientesView, que aplica el filtrado en vivo (sin botón "Buscar"). Sin
+ * la caja pesada ni los prefijos "Label:" del prototipo previo: un buscador
+ * prominente + dropdowns compactos, como en un producto real.
  */
-export function ExpedientesFilters({ onSearch }: ExpedientesFiltersProps) {
-  const [filters, setFilters] = useState<ExpedientesFiltersValue>(EMPTY_FILTERS);
-
-  const update = <K extends keyof ExpedientesFiltersValue>(key: K, value: ExpedientesFiltersValue[K]) =>
-    setFilters((prev) => ({ ...prev, [key]: value }));
+export function ExpedientesFilters({ value, onChange }: ExpedientesFiltersProps) {
+  const set = <K extends keyof ExpedientesFiltersValue>(key: K, v: ExpedientesFiltersValue[K]) =>
+    onChange({ ...value, [key]: v });
 
   return (
-    // Una sola línea (sin flex-wrap): los dos inputs son elásticos (flex-1 +
-    // min-w-0) y absorben el espacio sobrante, así el resto de los controles
-    // entran sin saltar de renglón. Orden pedido: Carátula, Nro Expediente,
-    // Fuero, Proceso, Estado, Archivados, Buscar.
-    <div className="briefly-card flex items-center gap-3 mb-4 overflow-x-auto">
-      <div className="flex items-center gap-2 flex-[2] min-w-0">
-        <span className="text-sm whitespace-nowrap">Carátula:</span>
-        <Input
-          value={filters.caratula}
-          onChange={(e) => update("caratula", e.target.value)}
-          placeholder="Buscar por carátula..."
-          className="min-w-[130px]"
-        />
-      </div>
-
-      <div className="flex items-center gap-2 flex-1 min-w-0">
-        <span className="text-sm whitespace-nowrap">Nro Expediente:</span>
-        <Input
-          value={filters.numeroExpediente}
-          onChange={(e) => update("numeroExpediente", e.target.value)}
-          placeholder="EXP-000"
-          className="min-w-[100px]"
+    <div className="mb-4 flex flex-wrap items-center gap-3">
+      {/* Buscador principal (carátula o número) */}
+      <div className="flex h-9 min-w-[220px] flex-1 items-center gap-2 rounded-md border border-white/15 bg-(--color-bg-elevated-2) px-3 transition-colors focus-within:border-(--color-accent) focus-within:ring-2 focus-within:ring-(--color-accent)/40">
+        <Search className="h-4 w-4 shrink-0 text-(--color-text-tertiary)" />
+        <input
+          value={value.search}
+          onChange={(e) => set("search", e.target.value)}
+          placeholder="Buscar por carátula o expediente…"
+          aria-label="Buscar expedientes"
+          className="min-w-0 flex-1 bg-transparent text-sm text-(--color-text-primary) outline-none placeholder:text-(--color-text-tertiary)"
         />
       </div>
 
       <MultiSelectDropdown
         label="Fuero"
         options={FUERO_OPTIONS}
-        selected={filters.fuero}
-        onChange={(next) => update("fuero", next)}
+        selected={value.fuero}
+        onChange={(next) => set("fuero", next)}
         width={150}
       />
       <MultiSelectDropdown
         label="Proceso"
         options={PROCESO_OPTIONS}
-        selected={filters.proceso}
-        onChange={(next) => update("proceso", next)}
+        selected={value.proceso}
+        onChange={(next) => set("proceso", next)}
         width={150}
       />
       <MultiSelectDropdown
         label="Estado"
         options={ESTADO_OPTIONS}
-        selected={filters.estado}
-        onChange={(next) => update("estado", next)}
-        width={150}
+        selected={value.estado}
+        onChange={(next) => set("estado", next)}
+        width={160}
       />
 
-      <label
-        htmlFor="archivados"
-        className="flex items-center gap-2 text-sm cursor-pointer select-none whitespace-nowrap shrink-0"
-      >
+      <label className="flex shrink-0 cursor-pointer select-none items-center gap-2 whitespace-nowrap text-sm">
         <Checkbox
-          id="archivados"
-          checked={filters.archivados}
-          onCheckedChange={(checked) => update("archivados", checked === true)}
+          checked={value.archivados}
+          onCheckedChange={(checked) => set("archivados", checked === true)}
         />
-        Archivados
+        Incluir archivados
       </label>
-
-      <Button onClick={() => onSearch?.(filters)} className="shrink-0">
-        Buscar
-        <Search className="h-4 w-4" />
-      </Button>
     </div>
   );
 }
