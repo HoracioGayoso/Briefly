@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Honorarios</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item is-active"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main">
+    <div class="topbar">
+      <h1 class="text-h1">Honorarios y facturación</h1>
+    </div>
+
+    <div class="stat-row" style="margin-bottom:16px;">
+      <div class="stat-card"><div class="stat-value">$ 480.000</div><div class="stat-label">Pendiente de cobro</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:var(--color-success);">$ 1.250.000</div><div class="stat-label">Cobrado este año</div></div>
+      <div class="stat-card"><div class="stat-value">$ 32.000</div><div class="stat-label">Gastos sin rendir</div></div>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="data-table">
+        <thead><tr><th style="width:30%">Expediente / Cliente</th><th style="width:16%">Concepto</th><th style="width:16%">Monto</th><th style="width:14%">Fecha</th><th style="width:14%">Estado</th><th style="width:10%">Acciones</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="truncate">EXP-001 · Planiscig S.R.L.</span></td>
+            <td>Honorarios primera instancia</td>
+            <td>$ 250.000</td>
+            <td>01/06/2026</td>
+            <td><span class="badge badge-warning">Pendiente</span></td>
+            <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+          </tr>
+          <tr class="is-hover">
+            <td><span class="truncate">EXP-002 · Fernández, María</span></td>
+            <td>Gastos de mediación</td>
+            <td>$ 32.000</td>
+            <td>15/06/2026</td>
+            <td><span class="badge badge-secondary">Sin rendir</span></td>
+            <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+          </tr>
+          <tr>
+            <td><span class="truncate">EXP-005 · Constructora Sur SA</span></td>
+            <td>Honorarios regulados</td>
+            <td>$ 230.000</td>
+            <td>20/06/2026</td>
+            <td><span class="badge badge-warning">Pendiente</span></td>
+            <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+          </tr>
+          <tr>
+            <td><span class="truncate">EXP-004 · Rodríguez, Juan</span></td>
+            <td>Honorarios de consulta</td>
+            <td>$ 90.000</td>
+            <td>02/05/2026</td>
+            <td><span class="badge badge-success">Cobrado</span></td>
+            <td><button class="btn-ghost btn btn-sm"><i data-icon="edit" data-icon-size="15"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Patrón único de alta: FAB, igual que expedientes.html (no un botón
+         en el topbar). Acá abre una modal en vez de navegar. -->
+    <button class="fab" data-modal-open="modal-nuevo-honorario" title="Registrar honorario"><i data-icon="plus" data-icon-size="25"></i></button>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-nuevo-honorario">
+  <div class="modal">
+    <div class="modal-header"><span class="text-h3">Registrar honorario / gasto</span><button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button></div>
+    <div class="flex-col gap-sm">
+      <div class="field"><span class="field-label">Expediente</span>
+        <div class="dropdown" data-dropdown><button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate">EXP-001 — Gayoso vs Planiscig</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu"><div class="dropdown-item">EXP-001</div><div class="dropdown-item">EXP-002</div></div>
+        </div>
+      </div>
+      <div class="field"><span class="field-label">Concepto</span><input class="simple-input" placeholder="Ej: Honorarios primera instancia"></div>
+      <div class="field"><span class="field-label">Monto (ARS)</span><input class="simple-input" placeholder="$ 0"></div>
+      <div class="field"><span class="field-label">Estado</span>
+        <div class="dropdown" data-dropdown><button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate">Pendiente</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu"><div class="dropdown-item is-selected">Pendiente</div><div class="dropdown-item">Cobrado</div><div class="dropdown-item">Sin rendir</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" data-modal-close>Cancelar</button><button class="btn btn-primary" data-modal-close>Guardar</button></div>
+  </div>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

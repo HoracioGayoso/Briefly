@@ -1,8 +1,73 @@
+/* Orden de capas de cascada. Clave: `coreui` va ENTRE `base` y `components`:
+   - Tailwind `base` (Preflight/reset) queda por DEBAJO de coreui, así el reset de
+     CoreUI/Bootstrap (Reboot) sigue mandando en sus propios componentes (sidebar,
+     dropdown de notificaciones, etc.) y no se los rompe el Preflight de Tailwind.
+   - `components` y `utilities` de Tailwind quedan por ENCIMA de coreui, así
+     nuestros componentes shadcn (que usan utilidades) le ganan a CoreUI cuando
+     compiten por la misma propiedad (border-radius, border, etc.).
+   Sin esta capa, el CSS sin capa de CoreUI le ganaba a las utilidades de Tailwind. */
+@layer theme, base, coreui, components, utilities;
+@import "@coreui/coreui/dist/css/coreui.min.css" layer(coreui);
 @import "tailwindcss";
 
+/* ==========================================================================
+   Design tokens de Briefly
+   ==========================================================================
+   El fondo real de la app hoy es el que define el tema oscuro de CoreUI
+   (--cui-body-bg, #212631) vía `data-coreui-theme="dark"` en <html> — eso NO
+   se toca, es intencionalmente distinto del fondo casi negro de los mockups
+   estáticos (mockups/shared.css usa #0a0a0a). El resto de los tokens de
+   diseño (espaciado, radios, sombras) sí se portan literalmente de los
+   mockups para mantener consistencia visual con las pantallas ya aprobadas.
+   Los tokens de color se alían a variables de CoreUI cuando existe un
+   equivalente cercano, en vez de hardcodear hex duplicados. */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  /* Superficies — alias de las variables reales de CoreUI (tema oscuro) */
+  --color-bg-page: var(--cui-body-bg);
+  --color-bg-elevated: var(--cui-tertiary-bg);
+  --color-bg-elevated-2: var(--cui-secondary-bg);
+
+  /* Bordes */
+  --color-border: rgba(255, 255, 255, 0.25);
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+  --color-border-focus: var(--cui-info);
+
+  /* Texto — CoreUI ya expone estos niveles de énfasis en el tema oscuro */
+  --color-text-primary: var(--cui-body-color);
+  --color-text-secondary: var(--cui-secondary-color);
+  --color-text-tertiary: var(--cui-tertiary-color);
+
+  /* Acento de marca y estados semánticos — iguales a los que ya usan los
+     componentes CoreUI existentes (CButton color="info", CBadge, etc.) */
+  --color-accent: var(--cui-info);
+  --color-accent-hover: color-mix(in srgb, var(--cui-info) 85%, black);
+  --color-accent-active: color-mix(in srgb, var(--cui-info) 70%, black);
+  --color-success: var(--cui-success);
+  --color-warning: var(--cui-warning);
+  --color-danger: var(--cui-danger);
+  --color-secondary: var(--cui-secondary);
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+
+  /* Espaciado */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+
+  --background: var(--color-bg-page);
+  --foreground: var(--color-text-primary);
 }
 
 @theme inline {
@@ -11,30 +76,313 @@
   --font-sans: var(--font-inter);
 }
 
-/* Dark mode is forced via data-coreui-theme=dark on html */
-
+/* Dark mode se fuerza vía data-coreui-theme=dark en <html>; el fondo lo
+   define CoreUI (ver bloque de tokens arriba), no lo pisamos acá. */
 body {
-  background: var(--background);
   color: var(--foreground);
 }
 
-/* CoreUI Sidebar narrow (closed) spacing tweaks */
-.sidebar.sidebar-narrow .sidebar-header {
-  padding-left: 12px;
-  padding-right: 12px;
+/* ==========================================================================
+   Sidebar colapsable (estado manejado 100% por React, no por CoreUI)
+   ==========================================================================
+   El colapso de CoreUI (prop `unfoldable`) sólo aplicaba dentro de un
+   @media (min-width:992px); por debajo de eso el panel quedaba a 16rem con el
+   texto y los íconos cortados. Acá el ancho lo decide React (clases
+   .is-collapsed / .is-expanded en el panel, y .is-expanded en el slot), sin
+   media queries, así el comportamiento es idéntico en cualquier resolución.
+
+   Modelo de layout:
+   - El SLOT (.briefly-sidebar-slot) es el ítem flex que reserva el espacio del
+     menú en el layout: 4rem angosto, 16rem expandido. El contenido (<main>)
+     siempre arranca al lado del slot.
+   - El PANEL (.briefly-sidebar) es sticky y vive dentro del slot, con el mismo
+     ancho que éste. Al expandirse (por hover o fijado), slot y panel crecen a
+     16rem juntos, así que el contenido SE DESPLAZA a la derecha (push) en vez
+     de quedar tapado por un overlay. */
+
+/* Slot: reserva el ancho en el flujo. Angosto por defecto, ancho al expandirse
+   (hover o fijado). La transición del ancho hace que el contenido se corra
+   suavemente. */
+.briefly-sidebar-slot {
+  position: relative;
+  flex: 0 0 4rem;
+  width: 4rem;
+  transition: flex-basis 0.15s ease, width 0.15s ease;
+}
+.briefly-sidebar-slot.is-expanded {
+  flex-basis: 16rem;
+  width: 16rem;
 }
 
-.sidebar.sidebar-narrow .sidebar-brand {
-  padding-left: 4px;
-  padding-right: 4px;
+/* Panel: sticky a lo alto, mismo ancho que el slot (controlado por la clase de
+   estado). overflow:hidden evita que el texto asome durante la transición de
+   ancho; z-index lo mantiene por encima del contenido al desplazarse. */
+.briefly-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1040;
+  transition: width 0.15s ease;
 }
-/* Estilo para el fondo del menú desplegable */
-.custom-select option {
-  background-color: black !important;
-  color: white !important;
+.briefly-sidebar.is-collapsed {
+  width: 4rem;
+}
+.briefly-sidebar.is-expanded {
+  width: 16rem;
 }
 
-/* Estilo para el fondo del menú desplegable al pasar el mouse */
-.custom-select option:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+/* El estado colapsado/expandido de los ítems del nav (centrado, ocultar label)
+   se maneja ahora con clases condicionales en el componente Sidebar (según
+   `expanded`), no con reglas .is-collapsed acá. */
+
+/* ---- Topbar canónico: título → acciones contextuales → campana → avatar ---- */
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.app-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* ---- Botón de la campana (40x40, igual que mockups/shared.css) ---- */
+.notif-bell-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  padding: 0;
+}
+
+.notif-bell-btn:hover {
+  background: var(--color-bg-elevated-2);
+}
+
+/* ---- Badge de la campana de notificaciones ---- */
+.notif-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+/* ---- Tarjeta genérica (no usar la clase Bootstrap/CoreUI ".card": esa
+   fuerza display:flex + flex-direction:column propios y pisa cualquier
+   layout que le pongamos encima) ---- */
+.briefly-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  padding: var(--space-md);
+}
+
+/* ---- FAB — botón flotante de alta, siempre fixed abajo a la derecha.
+   No combinar con las clases .btn/.btn-info de CoreUI: su border-radius
+   y padding propios pisan los de acá y el botón deja de verse circular.
+   position:fixed + offsets en px es relativo al viewport, no al contenido:
+   el mismo despeje respecto de la esquina vale en cualquier resolución. Los
+   40px de acá dan más aire que el borde redondeado de la card de abajo. ---- */
+.fab {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  border: 1px solid #fff;
+  color: #fff;
+  box-shadow: var(--shadow-md);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s, transform 0.15s;
+}
+
+.fab:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+
+/* ---- Toggler de colapso del sidebar (icono propio, no el de CoreUI) ---- */
+.briefly-sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.briefly-sidebar-toggle:hover {
+  background: var(--color-bg-elevated-2);
+  color: var(--color-text-primary);
+}
+
+/* ---- Hover de fila de tabla: accent azul + texto blanco, igual que
+   mockups/shared.css (.data-table tbody tr:hover), en vez del gris
+   translúcido por defecto de Bootstrap/CoreUI. Se pisan las custom
+   properties propias de .table-hover (no el color directo) porque son las
+   que usa la regla real `tbody>tr:hover>*` para resolver el color/fondo. ---- */
+.table-hover {
+  --cui-table-hover-bg: var(--color-accent);
+  --cui-table-hover-color: #fff;
+}
+
+/* ---- Badge redondo de info (junto al título del Topbar). `top` corre el
+   badge un poco hacia abajo: el contenedor lo centra respecto de la caja de
+   línea completa del <h1> (que incluye el hueco de mayúsculas/ascendentes),
+   no respecto de la altura visual de las minúsculas — este offset lo alinea
+   con la 's' de "Fueros" en vez de quedar centrado más arriba. ---- */
+.briefly-info-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  cursor: help;
+}
+
+/* El tooltip del InfoBadge ahora es la primitiva Tooltip (shadcn/Radix), que
+   ya trae su propio estilo y max-width; no necesita reglas acá. */
+
+/* ---- Truncado de texto largo con elipsis (carátulas, etc.) ---- */
+.truncate-cell {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- Highlight de items del DropdownMenu (shadcn/Radix) ----
+   Va acá y no como utilidad de Tailwind a propósito: el CSS de CoreUI se importa
+   sin @layer y le gana a las utilidades capadas de Tailwind dentro del portal del
+   menú (ver nota en src/components/ui/dropdown-menu.tsx). data-[highlighted] lo
+   pone Radix al navegar con mouse o teclado; usa el mismo acento azul de la app. */
+.briefly-menu-item[data-highlighted] {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* Variante destructiva (ej. "Cerrar sesión"): texto rojo, y en highlight fondo
+   rojo. Va después del rule de arriba para ganarle (misma especificidad). */
+.briefly-menu-item-danger {
+  color: var(--color-danger);
+}
+.briefly-menu-item-danger[data-highlighted] {
+  background: var(--color-danger);
+  color: #fff;
+}
+
+/* ---- Checkbox (shadcn/Radix): TODO el color va acá y no en utilidades de
+   Tailwind, porque en este proyecto las utilidades (bg-transparent, border-*)
+   le ganan a las reglas .briefly-* y pisaban el estado checked. data-state lo
+   pone Radix. Checked = acento azul, mismo tono que los botones. ---- */
+.briefly-checkbox {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #fff;
+}
+.briefly-checkbox[data-state="checked"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ==========================================================================
+   Animaciones (filosofía Emil Kowalski: sobrias, con propósito, <300ms,
+   ease-out, y degradadas con prefers-reduced-motion).
+   ========================================================================== */
+
+/* Entrada: nada aparece "de la nada" — escala desde 0.96 + opacidad. Salida:
+   más rápida que la entrada. Ambas ease-out (curva fuerte para que se sienta
+   intencional, no la ease-out débil por defecto). */
+@keyframes briefly-pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes briefly-pop-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+@keyframes briefly-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Menú del DropdownMenu (acciones, multiselect, notificaciones). Origin-aware:
+   escala desde el trigger, no desde el centro (var de Radix). */
+.briefly-menu {
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+}
+.briefly-menu[data-state="open"] {
+  animation: briefly-pop-in 170ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.briefly-menu[data-state="closed"] {
+  animation: briefly-pop-out 120ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Tooltip del InfoBadge, también origin-aware. */
+.briefly-tooltip {
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+}
+.briefly-tooltip[data-state="delayed-open"],
+.briefly-tooltip[data-state="instant-open"] {
+  animation: briefly-pop-in 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Reduced motion: sin movimiento (solo un fade suave), y sin el scale de press
+   de los botones. Se mantiene la opacidad porque ayuda a la comprensión. */
+@media (prefers-reduced-motion: reduce) {
+  .briefly-menu[data-state="open"],
+  .briefly-tooltip[data-state="delayed-open"],
+  .briefly-tooltip[data-state="instant-open"] {
+    animation: briefly-fade-in 120ms ease;
+  }
+  .briefly-menu[data-state="closed"] {
+    animation: none;
+  }
+  .briefly-checkbox,
+  button {
+    transition: none !important;
+  }
+  button:active {
+    transform: none !important;
+  }
 }

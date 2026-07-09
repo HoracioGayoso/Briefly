@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Mockups</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  main.app-main { max-width: 900px; margin: 0 auto; }
+  .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .link-card { border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 16px; display:flex; align-items:center; gap:12px; }
+  .link-card:hover { border-color: var(--color-accent); }
+  .link-card .icon-wrap { width:40px; height:40px; border-radius:var(--radius-md); background:rgba(61,153,245,0.12); color:var(--color-accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .group-title { margin: 32px 0 12px; }
+</style>
+</head>
+<body>
+<main class="app-main">
+  <div class="text-h1">Briefly — Mockups (versión web)</div>
+  <p class="text-secondary" style="margin-bottom:8px;">Todos los mockups son HTML/CSS/JS reales: los dropdowns, checkboxes, tabs y modales funcionan de verdad. Empezá por la guía de componentes para ver todos los estados de un vistazo.</p>
+  <a href="components.html" class="btn btn-primary" style="margin-bottom:8px;">Ver guía de componentes</a>
+
+  <div class="text-h2 group-title">Existentes (ya prototipadas)</div>
+  <div class="link-grid">
+    <a class="link-card" href="expedientes.html"><span class="icon-wrap"><i data-icon="folder" data-icon-size="20"></i></span><div><div class="text-label">Expedientes</div><div class="text-caption">Listado, filtros, tabla</div></div></a>
+    <a class="link-card" href="expediente-nuevo.html"><span class="icon-wrap"><i data-icon="plus" data-icon-size="20"></i></span><div><div class="text-label">Nuevo expediente</div><div class="text-caption">Alta de expediente</div></div></a>
+    <a class="link-card" href="fueros.html"><span class="icon-wrap"><i data-icon="scale" data-icon-size="20"></i></span><div><div class="text-label">Fueros</div><div class="text-caption">Listado + ABM</div></div></a>
+    <a class="link-card" href="procesos.html"><span class="icon-wrap"><i data-icon="list-plus" data-icon-size="20"></i></span><div><div class="text-label">Procesos</div><div class="text-caption">Listado + ABM</div></div></a>
+  </div>
+
+  <div class="text-h2 group-title">Nuevas — MVP abogado individual</div>
+  <div class="link-grid">
+    <a class="link-card" href="login.html"><span class="icon-wrap"><i data-icon="lock" data-icon-size="20"></i></span><div><div class="text-label">Login</div></div></a>
+    <a class="link-card" href="registro.html"><span class="icon-wrap"><i data-icon="id-card" data-icon-size="20"></i></span><div><div class="text-label">Registro</div><div class="text-caption">Alta de abogado</div></div></a>
+    <a class="link-card" href="perfil.html"><span class="icon-wrap"><i data-icon="user" data-icon-size="20"></i></span><div><div class="text-label">Perfil</div></div></a>
+    <a class="link-card" href="dashboard.html"><span class="icon-wrap"><i data-icon="home" data-icon-size="20"></i></span><div><div class="text-label">Dashboard</div></div></a>
+    <a class="link-card" href="expediente-detalle.html"><span class="icon-wrap"><i data-icon="eye" data-icon-size="20"></i></span><div><div class="text-label">Detalle de expediente</div><div class="text-caption">Datos / Documentos / Historial</div></div></a>
+    <a class="link-card" href="calendario.html"><span class="icon-wrap"><i data-icon="calendar" data-icon-size="20"></i></span><div><div class="text-label">Calendario</div><div class="text-caption">Vencimientos</div></div></a>
+    <a class="link-card" href="honorarios.html"><span class="icon-wrap"><i data-icon="dollar" data-icon-size="20"></i></span><div><div class="text-label">Honorarios</div></div></a>
+    <a class="link-card" href="clientes.html"><span class="icon-wrap"><i data-icon="users" data-icon-size="20"></i></span><div><div class="text-label">Clientes</div><div class="text-caption">Listado + ficha</div></div></a>
+    <a class="link-card" href="notificaciones.html"><span class="icon-wrap"><i data-icon="bell" data-icon-size="20"></i></span><div><div class="text-label">Notificaciones</div><div class="text-caption">Centro completo</div></div></a>
+    <a class="link-card" href="suscripcion.html"><span class="icon-wrap"><i data-icon="card" data-icon-size="20"></i></span><div><div class="text-label">Suscripción</div><div class="text-caption">Plan + facturación</div></div></a>
+  </div>
+</main>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

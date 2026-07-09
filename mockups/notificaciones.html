@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Notificaciones</title>
+<link rel="stylesheet" href="shared.css">
+<style>.notif-full-row { display:flex; align-items:flex-start; gap:12px; padding:14px 4px; border-bottom:1px solid var(--color-border-subtle); border-radius:var(--radius-md); border:1px solid transparent; }
+.notif-full-row:hover { border-color:var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main" style="max-width:760px;">
+    <div class="topbar">
+      <h1 class="text-h1">Notificaciones</h1>
+      <button class="btn btn-ghost btn-sm">Marcar todas como leídas</button>
+    </div>
+
+    <div class="tabs" data-tabs>
+      <div class="tab-item is-active" data-tab="todas">Todas</div>
+      <div class="tab-item" data-tab="config">Preferencias</div>
+    </div>
+
+    <div data-tab-panel="todas" class="tab-panel is-active">
+      <div class="card" style="padding:8px;">
+        <div class="notif-full-row"><span class="notif-dot" style="margin-top:6px;"></span><div class="flex-1"><div class="text-body-sm">El expediente <b>EXP-002</b> cambió de estado a <span class="badge badge-warning" style="min-width:auto; padding:2px 8px;">Pendiente</span></div><div class="text-caption">Hace 2 horas</div></div></div>
+        <div class="notif-full-row"><span class="notif-dot" style="margin-top:6px;"></span><div class="flex-1"><div class="text-body-sm">Vencimiento próximo: contestar demanda en <b>EXP-003</b> (mañana)</div><div class="text-caption">Hace 5 horas</div></div></div>
+        <div class="notif-full-row"><span class="notif-dot" style="margin-top:6px; background:#fff;"></span><div class="flex-1 text-secondary"><div class="text-body-sm">Se agregó un documento a <b>EXP-004</b></div><div class="text-caption">Ayer</div></div></div>
+        <div class="notif-full-row"><span class="notif-dot" style="margin-top:6px; background:#fff;"></span><div class="flex-1 text-secondary"><div class="text-body-sm">El expediente <b>EXP-005</b> está listo para cobro</div><div class="text-caption">Hace 3 días</div></div></div>
+      </div>
+    </div>
+
+    <div data-tab-panel="config" class="tab-panel">
+      <div class="card flex-col gap-md">
+        <div class="flex justify-between items-center">
+          <div><div class="text-body-sm">Cambios de estado en mis expedientes</div><div class="text-caption">Notificar dentro de la app</div></div>
+          <div class="checkbox-row"><span class="checkbox-box is-checked"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span></div>
+        </div>
+        <div class="flex justify-between items-center">
+          <div><div class="text-body-sm">Vencimientos y plazos procesales</div><div class="text-caption">Notificar dentro de la app + correo</div></div>
+          <div class="checkbox-row"><span class="checkbox-box is-checked"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span></div>
+        </div>
+        <div class="flex justify-between items-center">
+          <div><div class="text-body-sm">Resumen semanal por correo</div><div class="text-caption">Todos los lunes a las 8:00</div></div>
+          <div class="checkbox-row"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span></div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;">Guardar preferencias</button>
+    </div>
+  </main>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Registro de abogado</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .auth-shell { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px; }
+  .auth-card-lg { width: 100%; max-width: 640px; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 32px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="auth-shell">
+  <form class="auth-card-lg" onsubmit="event.preventDefault(); location.href='expedientes.html';">
+    <div class="text-h1" style="margin-bottom:2px;">Crear cuenta de abogado</div>
+    <p class="text-secondary text-body-sm" style="margin-bottom:24px;">Completá tus datos profesionales. Vamos a validar tu matrícula con el colegio correspondiente.</p>
+
+    <div class="text-caption" style="margin-bottom:8px;">DATOS PERSONALES</div>
+    <div class="grid-2" style="margin-bottom:12px;">
+      <div class="field"><span class="field-label">Nombre</span><input class="simple-input" placeholder="Horacio" required></div>
+      <div class="field"><span class="field-label">Apellido</span><input class="simple-input" placeholder="Gayoso" required></div>
+      <div class="field"><span class="field-label">DNI</span><input class="simple-input" placeholder="30.123.456" required></div>
+      <div class="field"><span class="field-label">Teléfono</span><input class="simple-input" placeholder="+54 9 11 1234-5678"></div>
+      <div class="field" style="grid-column: span 2;"><span class="field-label">Correo electrónico</span><input class="simple-input" type="email" placeholder="tu@estudio.com" required></div>
+      <div class="field"><span class="field-label">Contraseña</span><input class="simple-input" type="password" placeholder="••••••••" required></div>
+      <div class="field"><span class="field-label">Confirmar contraseña</span><input class="simple-input" type="password" placeholder="••••••••" required></div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="text-caption" style="margin-bottom:8px;">DATOS PROFESIONALES</div>
+    <div class="grid-2" style="margin-bottom:12px;">
+      <div class="field">
+        <span class="field-label">Colegio de abogados / jurisdicción</span>
+        <div class="dropdown" data-dropdown>
+          <button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate">Seleccione...</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item">CPACF — Capital Federal</div>
+            <div class="dropdown-item">Colegio de Abogados de la Pcia. de Buenos Aires</div>
+            <div class="dropdown-item">Colegio de Abogados de Córdoba</div>
+            <div class="dropdown-item">Colegio de Abogados de Santa Fe</div>
+            <div class="dropdown-item">Otro / no listado</div>
+          </div>
+        </div>
+      </div>
+      <div class="field"><span class="field-label">N° de matrícula (tomo/folio)</span><input class="simple-input" placeholder="Ej: T° 120 F° 345"></div>
+      <div class="field" style="grid-column: span 2;"><span class="field-label">Domicilio profesional / electrónico constituido</span><input class="simple-input" placeholder="Av. Corrientes 1234, CABA"></div>
+      <div class="field" style="grid-column: span 2;">
+        <span class="field-label">Fuero(s) de práctica habitual (opcional)</span>
+        <div class="dropdown" data-dropdown data-multiselect>
+          <button type="button" class="dropdown-toggle" data-dropdown-toggle><span class="truncate" data-multiselect-label>Seleccionar</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item" data-multiselect-option data-label="Civil"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Civil</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Comercial"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Comercial</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Laboral"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Laboral</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Familia"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Familia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkbox-row" style="margin-bottom:20px;">
+      <span class="checkbox-box is-checked"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>
+      <span class="text-body-sm">Acepto los <a href="#" class="text-accent">Términos</a> y la <a href="#" class="text-accent">Política de Protección de Datos Personales</a> (Ley 25.326)</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-full" style="justify-content:center;">Crear cuenta</button>
+    <div class="text-body-sm text-secondary" style="text-align:center; margin-top:16px;">
+      ¿Ya tenés cuenta? <a href="login.html" class="text-accent">Ingresá acá</a>
+    </div>
+  </form>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

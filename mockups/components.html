@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Guía de componentes</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .section { margin-bottom: 48px; }
+  .section-title { margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid var(--color-border-subtle); }
+  .swatch-row { display: flex; flex-wrap: wrap; gap: 16px; }
+  .swatch { width: 140px; }
+  .swatch-color { height: 64px; border-radius: var(--radius-md); border: 1px solid var(--color-border-subtle); margin-bottom: 6px; }
+  main.app-main { max-width: 1100px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<main class="app-main">
+  <div class="text-h1" style="margin-bottom:4px;">Briefly — Guía de componentes</div>
+  <p class="text-secondary" style="margin-bottom:32px;">Todos los estados se muestran ya renderizados (clases <span class="kbd">.is-hover</span>, <span class="kbd">.is-focus</span>, etc.) para poder revisar sin necesidad de interactuar. Los componentes también funcionan de verdad: probá los dropdowns, checkboxes y tabs de las pantallas.</p>
+
+  <!-- COLORES -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Color</h2>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-color" style="background:#0a0a0a"></div><div class="text-caption">bg/page #0a0a0a</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#111318"></div><div class="text-caption">bg/elevated #111318</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#3d99f5"></div><div class="text-caption">accent #3d99f5</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2eb85c"></div><div class="text-caption">success #2eb85c</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#f9b115"></div><div class="text-caption">warning #f9b115</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#e55353"></div><div class="text-caption">danger #e55353</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#8a93a2"></div><div class="text-caption">secondary #8a93a2</div></div>
+    </div>
+  </section>
+
+  <!-- TIPOGRAFIA -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Tipografía (Inter)</h2>
+    <div class="flex-col gap-sm">
+      <div class="text-h1">H1 — Título de página / 24px / 700</div>
+      <div class="text-h2">H2 — Título de sección / 20px / 600</div>
+      <div class="text-h3">H3 — Título de tarjeta / 16px / 600</div>
+      <div class="text-body">Body — Texto general / 16px / 400</div>
+      <div class="text-body-sm">Body small — Texto de tabla, inputs / 14px / 400</div>
+      <div class="text-label">Label — Etiquetas de campo / 14px / 500</div>
+      <div class="text-caption">Caption — Ayudas y metadatos / 12.8px / 500</div>
+    </div>
+  </section>
+
+  <!-- BOTONES -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Botones</h2>
+    <div class="state-demo-grid">
+      <div class="state-demo"><span class="state-demo-label">Primary / default</span><button class="btn btn-primary">Guardar</button></div>
+      <div class="state-demo"><span class="state-demo-label">Primary / hover</span><button class="btn btn-primary is-hover">Guardar</button></div>
+      <div class="state-demo"><span class="state-demo-label">Primary / disabled</span><button class="btn btn-primary is-disabled" disabled>Guardar</button></div>
+      <div class="state-demo"><span class="state-demo-label">Secondary / default</span><button class="btn btn-secondary">Volver</button></div>
+      <div class="state-demo"><span class="state-demo-label">Secondary / hover</span><button class="btn btn-secondary is-hover">Volver</button></div>
+      <div class="state-demo"><span class="state-demo-label">Danger / default</span><button class="btn btn-danger">Archivar</button></div>
+      <div class="state-demo"><span class="state-demo-label">Danger / hover</span><button class="btn btn-danger is-hover">Archivar</button></div>
+      <div class="state-demo"><span class="state-demo-label">Ghost / default</span><button class="btn btn-ghost">Cancelar</button></div>
+      <div class="state-demo"><span class="state-demo-label">Ghost / hover</span><button class="btn btn-ghost is-hover">Cancelar</button></div>
+      <div class="state-demo"><span class="state-demo-label">FAB / default</span><button class="fab" style="position:static;"><i data-icon="plus" data-icon-size="25"></i></button></div>
+      <div class="state-demo"><span class="state-demo-label">FAB / hover</span><button class="fab is-hover" style="position:static;"><i data-icon="plus" data-icon-size="25"></i></button></div>
+    </div>
+    <p class="text-caption" style="margin-top:12px;">El FAB es el único patrón de "agregar registro" de la app (Expedientes, Fueros, Procesos, Clientes, Honorarios, Calendario, etc.). Nunca un botón "btn-primary" suelto en el topbar: si la pantalla navega a una página propia usa <span class="kbd">href</span>, si abre una modal sobre el propio listado usa <span class="kbd">data-modal-open</span> — mismo look en los dos casos.</p>
+  </section>
+
+  <!-- INPUTS -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Inputs</h2>
+    <div class="state-demo-grid">
+      <div class="state-demo w-full"><span class="state-demo-label">Simple / default</span><input class="simple-input w-full" placeholder="Placeholder"></div>
+      <div class="state-demo w-full"><span class="state-demo-label">Simple / focus</span><input class="simple-input is-focus w-full" value="Texto ingresado"></div>
+      <div class="state-demo w-full"><span class="state-demo-label">Simple / disabled</span><input class="simple-input w-full" placeholder="No disponible" disabled></div>
+      <div class="state-demo w-full"><span class="state-demo-label">Simple / error</span><input class="simple-input is-error w-full" value="dato inválido"></div>
+      <div class="state-demo w-full" style="grid-column: span 2;">
+        <span class="state-demo-label">Input group con icono (formulario)</span>
+        <div class="input-group w-full">
+          <div class="input-group-prefix"><i data-icon="file-text" data-icon-size="18"></i><span>Carátula</span></div>
+          <input class="input-control" placeholder="Ingresar carátula">
+        </div>
+      </div>
+      <div class="state-demo w-full" style="grid-column: span 2;">
+        <span class="state-demo-label">Input group / focus</span>
+        <div class="input-group w-full is-focus">
+          <div class="input-group-prefix"><i data-icon="file-text" data-icon-size="18"></i><span>Carátula</span></div>
+          <input class="input-control" value="Gayoso vs Planiscig">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKBOX -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Checkbox</h2>
+    <div class="state-demo-grid">
+      <div class="state-demo"><span class="state-demo-label">Unchecked</span><div class="checkbox-row"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Archivados</div></div>
+      <div class="state-demo"><span class="state-demo-label">Hover</span><div class="checkbox-row"><span class="checkbox-box is-hover"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Archivados</div></div>
+      <div class="state-demo"><span class="state-demo-label">Checked</span><div class="checkbox-row"><span class="checkbox-box is-checked"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Archivados</div></div>
+    </div>
+  </section>
+
+  <!-- DROPDOWN -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Dropdown</h2>
+    <div class="state-demo-grid">
+      <div class="state-demo w-full">
+        <span class="state-demo-label">Toggle / default</span>
+        <div class="dropdown-toggle"><span class="truncate">Seleccionar</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></div>
+      </div>
+      <div class="state-demo w-full">
+        <span class="state-demo-label">Toggle / hover</span>
+        <div class="dropdown-toggle is-hover"><span class="truncate">Seleccionar</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></div>
+      </div>
+      <div class="state-demo w-full">
+        <span class="state-demo-label">Toggle / open + valor</span>
+        <div class="dropdown-toggle is-open"><span class="truncate">Fuero A | Fuero B</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></div>
+      </div>
+    </div>
+    <div style="margin-top:16px;">
+      <span class="state-demo-label">Menú desplegable — item default / hover / seleccionado</span>
+      <div class="dropdown-menu is-open dropdown-menu-plain" style="position:static; margin-top:6px; width:260px;">
+        <div class="dropdown-item"><span class="checkbox-box"></span> Fuero C</div>
+        <div class="dropdown-item is-hover"><span class="checkbox-box"></span> Fuero D (hover)</div>
+        <div class="dropdown-item is-selected"><span class="checkbox-box is-checked"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span> Fuero A (seleccionado)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BADGES -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Badges de estado</h2>
+    <div class="flex gap-sm flex-wrap">
+      <span class="badge badge-success">Al día</span>
+      <span class="badge badge-warning">Pendiente</span>
+      <span class="badge badge-danger">Urgente</span>
+      <span class="badge badge-secondary">Inactivo</span>
+      <span class="badge badge-info">Listo para cobro</span>
+    </div>
+  </section>
+
+  <!-- CHIPS -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Chips (filtros multi-select)</h2>
+    <div class="flex gap-sm flex-wrap">
+      <span class="chip">Fuero A <span class="remove" data-icon="x" data-icon-size="12"></span></span>
+      <span class="chip">Civil <span class="remove" data-icon="x" data-icon-size="12"></span></span>
+    </div>
+  </section>
+
+  <!-- TABLA -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Fila de tabla</h2>
+    <table class="data-table" style="max-width:640px;">
+      <tbody>
+        <tr><td>Fila normal</td><td>EXP-001</td><td><span class="badge badge-success">Al día</span></td></tr>
+        <tr class="is-hover"><td>Fila en hover</td><td>EXP-002</td><td><span class="badge badge-warning">Pendiente</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PAGINACION -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Paginación</h2>
+    <div class="pagination" style="justify-content:flex-start;">
+      <span class="page-item">&laquo;</span>
+      <span class="page-item is-hover">&lsaquo;</span>
+      <span class="page-item is-active">3</span>
+      <span class="page-item is-disabled">&rsaquo;</span>
+      <span class="page-item">&raquo;</span>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Tabs</h2>
+    <div class="tabs" style="max-width:400px;">
+      <div class="tab-item is-active">Datos generales</div>
+      <div class="tab-item is-hover">Documentos</div>
+      <div class="tab-item">Historial</div>
+    </div>
+  </section>
+
+  <!-- SIDEBAR NAV ITEM -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Ítem de navegación (sidebar)</h2>
+    <div class="flex-col gap-xs" style="max-width:240px; background:var(--color-bg-page); border:1px solid var(--color-border-subtle); border-radius:var(--radius-md); padding:8px;">
+      <div class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></div>
+      <div class="sidebar-nav-item is-hover"><i data-icon="home" class="icon"></i><span>Dashboard (hover)</span></div>
+      <div class="sidebar-nav-item is-active"><i data-icon="calendar" class="icon"></i><span>Calendario (activo)</span></div>
+    </div>
+  </section>
+
+  <!-- AVATAR -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Avatar</h2>
+    <div class="flex items-center gap-md">
+      <div class="avatar avatar-sm">HG</div>
+      <div class="avatar avatar-md">HG</div>
+      <div class="avatar avatar-lg">HG</div>
+    </div>
+  </section>
+
+  <!-- CARD -->
+  <section class="section">
+    <h2 class="text-h2 section-title">Card / Panel</h2>
+    <div class="card" style="max-width:320px;">
+      <div class="text-h3" style="margin-bottom:6px;">Vencimientos hoy</div>
+      <div class="text-secondary text-body-sm">No hay vencimientos para el día de hoy.</div>
+    </div>
+  </section>
+
+</main>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Suscripción</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .plan-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:800px) { .plan-grid { grid-template-columns:1fr; } }
+  .plan-card { border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:24px; display:flex; flex-direction:column; gap:12px; }
+  .plan-card.is-current { border-color:var(--color-accent); box-shadow:0 0 0 1px var(--color-accent); }
+  .plan-price { font-size:28px; font-weight:700; }
+  .plan-feature { display:flex; align-items:center; gap:8px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item is-active"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main">
+    <div class="topbar"><h1 class="text-h1">Suscripción</h1></div>
+
+    <div class="plan-grid" style="margin-bottom:24px;">
+      <div class="plan-card is-current">
+        <div class="text-h3">Individual</div>
+        <div class="plan-price">$ 9.990<span class="text-body-sm text-secondary">/mes</span></div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>Hasta 50 expedientes</div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>5 GB de almacenamiento</div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>Calendario y honorarios</div>
+        <button class="btn btn-secondary" style="margin-top:auto;" disabled>Plan actual</button>
+      </div>
+      <div class="plan-card">
+        <div class="text-h3">Estudio chico</div>
+        <div class="plan-price">$ 24.990<span class="text-body-sm text-secondary">/mes</span></div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>Hasta 3 abogados</div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>Expedientes ilimitados</div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>25 GB de almacenamiento</div>
+        <button class="btn btn-primary" style="margin-top:auto;">Mejorar plan</button>
+      </div>
+      <div class="plan-card">
+        <div class="text-h3">Estudio grande</div>
+        <div class="plan-price">$ 54.990<span class="text-body-sm text-secondary">/mes</span></div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>Abogados ilimitados</div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>Roles y permisos avanzados</div>
+        <div class="plan-feature"><i data-icon="check" data-icon-size="15" class="text-accent"></i>100 GB de almacenamiento</div>
+        <button class="btn btn-primary" style="margin-top:auto;">Mejorar plan</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="flex justify-between items-center" style="margin-bottom:8px;">
+        <span class="text-h3">Método de pago</span>
+        <button class="btn btn-ghost btn-sm">Cambiar</button>
+      </div>
+      <div class="flex items-center gap-sm"><i data-icon="card" data-icon-size="20"></i><span class="text-body-sm">Visa terminada en 4242 · vence 08/28</span></div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <span class="text-h3">Historial de facturación</span>
+      <table class="data-table" style="margin-top:8px;">
+        <thead><tr><th style="width:40%">Fecha</th><th style="width:30%">Monto</th><th style="width:30%">Comprobante</th></tr></thead>
+        <tbody>
+          <tr><td>01/06/2026</td><td>$ 9.990</td><td><a href="#" class="text-accent">Descargar PDF</a></td></tr>
+          <tr class="is-hover"><td>01/05/2026</td><td>$ 9.990</td><td><a href="#" class="text-accent">Descargar PDF</a></td></tr>
+          <tr><td>01/04/2026</td><td>$ 9.990</td><td><a href="#" class="text-accent">Descargar PDF</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

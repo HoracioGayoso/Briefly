@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Expedientes</title>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item is-active"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="sidebar-toggler" data-sidebar-toggle title="Colapsar menú"><i data-icon="chevrons-left" data-icon-size="16"></i></button>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <div class="topbar">
+      <h1 class="text-h1">Expedientes</h1>
+      <div class="flex items-center gap-md">
+        <div class="dropdown" data-dropdown>
+          <button class="notif-bell-btn" data-dropdown-toggle title="Notificaciones">
+            <i data-icon="bell" data-icon-size="22"></i>
+            <span class="notif-badge">3</span>
+          </button>
+          <div class="dropdown-menu right" style="width:320px; padding:8px;">
+            <div class="notif-panel-header"><span class="text-label">Notificaciones</span><a href="notificaciones.html" class="text-caption text-accent">Ver todas</a></div>
+            <div class="notif-item"><span class="notif-dot"></span><span class="text-body-sm">Nuevo expediente agregado</span></div>
+            <div class="notif-item is-hover"><span class="notif-dot"></span><span class="text-body-sm">Expediente EXP-002 actualizado</span></div>
+            <div class="notif-item is-read"><span class="notif-dot"></span><span class="text-body-sm">Revisión pendiente de EXP-003</span></div>
+          </div>
+        </div>
+        <a href="perfil.html" class="avatar avatar-md" title="Mi perfil">HG</a>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="card flex flex-wrap items-center gap-md" style="margin-bottom:16px;">
+      <div class="checkbox-row">
+        <span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>
+        <span class="text-body-sm">Archivados</span>
+      </div>
+
+      <div class="flex items-center gap-sm">
+        <span class="text-body-sm" style="white-space:nowrap;">Fuero:</span>
+        <div class="dropdown" data-dropdown data-multiselect style="width:220px;">
+          <button class="dropdown-toggle" data-dropdown-toggle>
+            <span class="truncate" data-multiselect-label>Seleccionar</span>
+            <i data-icon="chevron-down" data-icon-size="16" class="caret"></i>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item" data-multiselect-option data-label="Fuero A"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Fuero A</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Fuero B"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Fuero B</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Fuero C"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Fuero C</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Fuero D"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Fuero D</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Fuero E"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Fuero E</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Fuero F"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Fuero F</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-sm">
+        <span class="text-body-sm" style="white-space:nowrap;">Proceso:</span>
+        <div class="dropdown" data-dropdown data-multiselect style="width:220px;">
+          <button class="dropdown-toggle" data-dropdown-toggle>
+            <span class="truncate" data-multiselect-label>Seleccionar</span>
+            <i data-icon="chevron-down" data-icon-size="16" class="caret"></i>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item" data-multiselect-option data-label="Proc A"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Proc A</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Proc B"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Proc B</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Proc C"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Proc C</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-sm">
+        <span class="text-body-sm" style="white-space:nowrap;">Estado:</span>
+        <div class="dropdown" data-dropdown data-multiselect style="width:220px;">
+          <button class="dropdown-toggle" data-dropdown-toggle>
+            <span class="truncate" data-multiselect-label>Seleccionar</span>
+            <i data-icon="chevron-down" data-icon-size="16" class="caret"></i>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item" data-multiselect-option data-label="Al día"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Al día</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Pendiente"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Pendiente</div>
+            <div class="dropdown-item" data-multiselect-option data-label="Urgente"><span class="checkbox-box"><svg viewBox="0 0 20 20"><path fill="none" stroke="white" stroke-width="3" d="m6 10 3 3 6-6"/></svg></span>Urgente</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-sm flex-1" style="min-width:180px;">
+        <span class="text-body-sm" style="white-space:nowrap;">Carátula:</span>
+        <input class="simple-input" placeholder="Buscar por carátula...">
+      </div>
+
+      <div class="flex items-center gap-sm flex-1" style="min-width:180px;">
+        <span class="text-body-sm" style="white-space:nowrap;">Nro Expediente:</span>
+        <input class="simple-input" placeholder="EXP-000">
+      </div>
+
+      <button class="btn btn-primary"><span>Search</span><i data-icon="search" data-icon-size="16"></i></button>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card flex-col flex-1" style="padding:0; overflow:hidden;">
+      <div class="table-wrap scrollbar-thin">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:38%">Carátula</th>
+              <th style="width:14%">Expediente</th>
+              <th style="width:13%">Fuero</th>
+              <th style="width:13%">Proceso</th>
+              <th style="width:15%">Estado</th>
+              <th style="width:7%">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onclick="location.href='expediente-detalle.html'" style="cursor:pointer;">
+              <td><span class="truncate">Gayoso vs Planiscig: Patentamiento sitio web aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span></td>
+              <td>EXP-001</td><td>Fuero A</td><td>Proc A</td>
+              <td><span class="badge badge-success">Al día</span></td>
+              <td onclick="event.stopPropagation()">
+                <div class="dropdown" data-dropdown>
+                  <button class="dropdown-toggle icon-only" data-dropdown-toggle><i data-icon="more-vertical" data-icon-size="18"></i></button>
+                  <div class="dropdown-menu right dropdown-menu-plain">
+                    <a href="expediente-detalle.html" class="dropdown-item"><i data-icon="eye" data-icon-size="16"></i>Ver expediente</a>
+                    <div class="dropdown-item" data-modal-open="modal-cambiar-estado"><i data-icon="edit" data-icon-size="16"></i>Cambiar estado</div>
+                    <div class="dropdown-item" data-modal-open="modal-archivar"><i data-icon="archive" data-icon-size="16"></i>Archivar</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr onclick="location.href='expediente-detalle.html'" style="cursor:pointer;">
+              <td><span class="truncate">Gayoso vs Planiscig: Patentamiento sitio web</span></td>
+              <td>EXP-002</td><td>Fuero B</td><td>Proc B</td>
+              <td><span class="badge badge-warning">Pendiente</span></td>
+              <td onclick="event.stopPropagation()">
+                <div class="dropdown" data-dropdown>
+                  <button class="dropdown-toggle icon-only" data-dropdown-toggle><i data-icon="more-vertical" data-icon-size="18"></i></button>
+                  <div class="dropdown-menu right dropdown-menu-plain">
+                    <a href="expediente-detalle.html" class="dropdown-item"><i data-icon="eye" data-icon-size="16"></i>Ver expediente</a>
+                    <div class="dropdown-item" data-modal-open="modal-cambiar-estado"><i data-icon="edit" data-icon-size="16"></i>Cambiar estado</div>
+                    <div class="dropdown-item" data-modal-open="modal-archivar"><i data-icon="archive" data-icon-size="16"></i>Archivar</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr class="is-hover" onclick="location.href='expediente-detalle.html'" style="cursor:pointer;">
+              <td><span class="truncate">Gayoso vs Planiscig: Patentamiento sitio web</span></td>
+              <td>EXP-003</td><td>Fuero C</td><td>Proc C</td>
+              <td><span class="badge badge-danger">Urgente</span></td>
+              <td onclick="event.stopPropagation()">
+                <div class="dropdown" data-dropdown>
+                  <button class="dropdown-toggle icon-only" data-dropdown-toggle><i data-icon="more-vertical" data-icon-size="18"></i></button>
+                  <div class="dropdown-menu right dropdown-menu-plain">
+                    <a href="expediente-detalle.html" class="dropdown-item"><i data-icon="eye" data-icon-size="16"></i>Ver expediente</a>
+                    <div class="dropdown-item" data-modal-open="modal-cambiar-estado"><i data-icon="edit" data-icon-size="16"></i>Cambiar estado</div>
+                    <div class="dropdown-item" data-modal-open="modal-archivar"><i data-icon="archive" data-icon-size="16"></i>Archivar</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr onclick="location.href='expediente-detalle.html'" style="cursor:pointer;">
+              <td><span class="truncate">Gayoso vs Planiscig: Patentamiento sitio web</span></td>
+              <td>EXP-004</td><td>Fuero D</td><td>Proc D</td>
+              <td><span class="badge badge-secondary">Inactivo</span></td>
+              <td onclick="event.stopPropagation()">
+                <div class="dropdown" data-dropdown>
+                  <button class="dropdown-toggle icon-only" data-dropdown-toggle><i data-icon="more-vertical" data-icon-size="18"></i></button>
+                  <div class="dropdown-menu right dropdown-menu-plain">
+                    <a href="expediente-detalle.html" class="dropdown-item"><i data-icon="eye" data-icon-size="16"></i>Ver expediente</a>
+                    <div class="dropdown-item" data-modal-open="modal-cambiar-estado"><i data-icon="edit" data-icon-size="16"></i>Cambiar estado</div>
+                    <div class="dropdown-item" data-modal-open="modal-archivar"><i data-icon="archive" data-icon-size="16"></i>Archivar</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr onclick="location.href='expediente-detalle.html'" style="cursor:pointer;">
+              <td><span class="truncate">Gayoso vs Planiscig: Patentamiento sitio web</span></td>
+              <td>EXP-005</td><td>Fuero E</td><td>Proc E</td>
+              <td><span class="badge badge-info">Listo para cobro</span></td>
+              <td onclick="event.stopPropagation()">
+                <div class="dropdown" data-dropdown>
+                  <button class="dropdown-toggle icon-only" data-dropdown-toggle><i data-icon="more-vertical" data-icon-size="18"></i></button>
+                  <div class="dropdown-menu right dropdown-menu-plain">
+                    <a href="expediente-detalle.html" class="dropdown-item"><i data-icon="eye" data-icon-size="16"></i>Ver expediente</a>
+                    <div class="dropdown-item" data-modal-open="modal-cambiar-estado"><i data-icon="edit" data-icon-size="16"></i>Cambiar estado</div>
+                    <div class="dropdown-item" data-modal-open="modal-archivar"><i data-icon="archive" data-icon-size="16"></i>Archivar</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        <span class="page-item">&laquo;</span>
+        <span class="page-item">&lsaquo;</span>
+        <span class="page-item is-active">1</span>
+        <span class="page-item">2</span>
+        <span class="page-item is-disabled">...</span>
+        <span class="page-item">10</span>
+        <span class="page-item">&rsaquo;</span>
+        <span class="page-item">&raquo;</span>
+      </div>
+    </div>
+
+    <a href="expediente-nuevo.html" class="fab" title="Nuevo expediente"><i data-icon="plus" data-icon-size="25"></i></a>
+  </main>
+</div>
+
+<!-- Modal: cambiar estado -->
+<div class="modal-overlay" id="modal-cambiar-estado">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="text-h3">Cambiar estado del expediente</span>
+      <button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button>
+    </div>
+    <p class="text-body-sm text-secondary" style="margin-top:0;">Seleccioná el nuevo estado. Se notificará el cambio y quedará registrado en el historial del expediente.</p>
+    <div class="flex-col gap-sm">
+      <label class="dropdown-item" style="border-color:var(--color-border-subtle); cursor:pointer;"><span class="badge badge-success" style="min-width:110px;">Al día</span></label>
+      <label class="dropdown-item is-hover" style="cursor:pointer;"><span class="badge badge-warning" style="min-width:110px;">Pendiente</span></label>
+      <label class="dropdown-item" style="border-color:var(--color-border-subtle); cursor:pointer;"><span class="badge badge-danger" style="min-width:110px;">Urgente</span></label>
+      <label class="dropdown-item" style="border-color:var(--color-border-subtle); cursor:pointer;"><span class="badge badge-secondary" style="min-width:110px;">Inactivo</span></label>
+      <label class="dropdown-item" style="border-color:var(--color-border-subtle); cursor:pointer;"><span class="badge badge-info" style="min-width:110px;">Listo para cobro</span></label>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button class="btn btn-primary" data-modal-close>Confirmar cambio</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: archivar -->
+<div class="modal-overlay" id="modal-archivar">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="text-h3">Archivar expediente</span>
+      <button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button>
+    </div>
+    <p class="text-body-sm text-secondary" style="margin-top:0;">El expediente pasará a la lista de archivados. Podés recuperarlo en cualquier momento tildando el filtro "Archivados". No se elimina ningún dato ni documento.</p>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button class="btn btn-danger" data-modal-close>Archivar</button>
+    </div>
+  </div>
+</div>
+
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Mi perfil</title>
+<link rel="stylesheet" href="shared.css">
+<style>.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } @media (max-width:560px){.grid-2{grid-template-columns:1fr;}}</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header"><span class="sidebar-brand">Briefly</span></div>
+    <nav class="sidebar-nav">
+      <a href="expedientes.html" class="sidebar-nav-item"><i data-icon="folder" class="icon"></i><span>Expedientes</span></a>
+      <a href="dashboard.html" class="sidebar-nav-item"><i data-icon="home" class="icon"></i><span>Dashboard</span></a>
+      <a href="calendario.html" class="sidebar-nav-item"><i data-icon="calendar" class="icon"></i><span>Calendario</span></a>
+      <a href="clientes.html" class="sidebar-nav-item"><i data-icon="users" class="icon"></i><span>Clientes</span></a>
+      <a href="honorarios.html" class="sidebar-nav-item"><i data-icon="dollar" class="icon"></i><span>Honorarios</span></a>
+      <a href="fueros.html" class="sidebar-nav-item"><i data-icon="scale" class="icon"></i><span>Fueros</span></a>
+      <a href="procesos.html" class="sidebar-nav-item"><i data-icon="list-plus" class="icon"></i><span>Procesos</span></a>
+      <a href="suscripcion.html" class="sidebar-nav-item"><i data-icon="card" class="icon"></i><span>Suscripción</span></a>
+    </nav>
+    <div class="sidebar-footer"><button class="sidebar-toggler" data-sidebar-toggle><i data-icon="chevrons-left" data-icon-size="16"></i></button></div>
+  </aside>
+  <main class="app-main" style="max-width:760px;">
+    <div class="topbar">
+      <h1 class="text-h1">Mi perfil</h1>
+      <a href="login.html" class="btn btn-ghost"><i data-icon="logout" data-icon-size="16"></i>Cerrar sesión</a>
+    </div>
+
+    <div class="flex items-center gap-md" style="margin-bottom:24px;">
+      <div class="avatar avatar-lg">HG</div>
+      <div>
+        <div class="text-h2">Horacio Gayoso</div>
+        <div class="text-secondary text-body-sm">CPACF — T° 120 F° 345</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" style="margin-left:auto;"><i data-icon="edit" data-icon-size="14"></i>Cambiar foto</button>
+    </div>
+
+    <div class="tabs" data-tabs>
+      <div class="tab-item is-active" data-tab="datos">Datos personales</div>
+      <div class="tab-item" data-tab="profesional">Datos profesionales</div>
+      <div class="tab-item" data-tab="seguridad">Seguridad y cuenta</div>
+    </div>
+
+    <div data-tab-panel="datos" class="tab-panel is-active">
+      <div class="grid-2">
+        <div class="field"><span class="field-label">Nombre</span><input class="simple-input" value="Horacio"></div>
+        <div class="field"><span class="field-label">Apellido</span><input class="simple-input" value="Gayoso"></div>
+        <div class="field"><span class="field-label">DNI</span><input class="simple-input" value="30.123.456"></div>
+        <div class="field"><span class="field-label">Teléfono</span><input class="simple-input" value="+54 9 11 1234-5678"></div>
+        <div class="field" style="grid-column:span 2;"><span class="field-label">Correo electrónico</span><input class="simple-input" value="horaciogayoso9@gmail.com"></div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;">Guardar cambios</button>
+    </div>
+
+    <div data-tab-panel="profesional" class="tab-panel">
+      <div class="grid-2">
+        <div class="field"><span class="field-label">Colegio de abogados</span><input class="simple-input" value="CPACF — Capital Federal"></div>
+        <div class="field"><span class="field-label">N° de matrícula</span><input class="simple-input" value="T° 120 F° 345"></div>
+        <div class="field" style="grid-column:span 2;"><span class="field-label">Domicilio profesional</span><input class="simple-input" value="Av. Corrientes 1234, CABA"></div>
+        <div class="field" style="grid-column:span 2;"><span class="field-label">Fueros de práctica habitual</span><input class="simple-input" value="Civil, Comercial"></div>
+      </div>
+      <div class="flex items-center gap-sm" style="margin-top:12px;">
+        <span class="badge badge-success" style="min-width:auto; padding:4px 10px;">Matrícula verificada</span>
+        <span class="text-caption">Última verificación: 01/07/2026</span>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;">Guardar cambios</button>
+    </div>
+
+    <div data-tab-panel="seguridad" class="tab-panel">
+      <div class="field" style="max-width:320px;"><span class="field-label">Nueva contraseña</span><input class="simple-input" type="password" placeholder="••••••••"></div>
+      <button class="btn btn-primary" style="margin-top:12px;">Actualizar contraseña</button>
+      <div class="divider"></div>
+      <div class="card" style="border-color: var(--color-danger);">
+        <div class="text-h3" style="color:var(--color-danger);">Dar de baja mi cuenta</div>
+        <p class="text-body-sm text-secondary">Tus expedientes deben transferirse a otro abogado antes de poder desactivar la cuenta.</p>
+        <button class="btn btn-danger" data-modal-open="modal-baja">Solicitar baja de cuenta</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-baja">
+  <div class="modal">
+    <div class="modal-header"><span class="text-h3">Dar de baja tu cuenta</span><button class="modal-close" data-modal-close><i data-icon="x" data-icon-size="18"></i></button></div>
+    <p class="text-body-sm text-secondary">Tenés 5 expedientes activos. Antes de desactivar tu cuenta, transferilos a otro abogado o archivalos.</p>
+    <div class="field"><span class="field-label">Transferir expedientes a</span><input class="simple-input" placeholder="Buscar abogado por email..."></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button class="btn btn-danger" data-modal-close>Confirmar baja</button>
+    </div>
+  </div>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

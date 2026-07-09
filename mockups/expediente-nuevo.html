@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Briefly — Nuevo Expediente</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .form-shell { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 32px; }
+  .form-card { max-width: 720px; width: 100%; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-lg); }
+  .file-drop { border: 1px dashed var(--color-border); border-radius: var(--radius-lg); padding: 20px; text-align: center; color: var(--color-text-secondary); font-size: 14px; }
+  .file-drop:hover { border-color: var(--color-accent); color: var(--color-text-primary); }
+</style>
+</head>
+<body>
+<div class="form-shell">
+  <form class="form-card" onsubmit="event.preventDefault(); location.href='expedientes.html';">
+    <div class="flex items-center gap-sm" style="margin-bottom:24px;">
+      <a href="expedientes.html" class="btn-ghost btn" style="padding:6px;"><i data-icon="arrow-left" data-icon-size="18"></i></a>
+      <span class="text-h1">Nuevo Expediente</span>
+    </div>
+
+    <div class="flex-col gap-sm">
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="file-text" data-icon-size="18"></i><span>Carátula</span></div><input class="input-control" placeholder="Ej: Gayoso vs Planiscig"></div>
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="tag" data-icon-size="18"></i><span>Número de expediente</span></div><input class="input-control" placeholder="EXP-000"></div>
+
+      <div class="input-group">
+        <div class="input-group-prefix"><i data-icon="shield" data-icon-size="18"></i><span>Fuero</span></div>
+        <div class="dropdown" data-dropdown style="flex:1; border-left:1px solid var(--color-border-subtle);">
+          <button type="button" class="dropdown-toggle" data-dropdown-toggle style="border:none; border-radius:0;"><span class="truncate">Seleccione...</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item is-selected">Seleccione...</div>
+            <div class="dropdown-item">Fuero A</div>
+            <div class="dropdown-item">Fuero B</div>
+            <div class="dropdown-item">Fuero C</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="building" data-icon-size="18"></i><span>Juzgado</span></div><input class="input-control" placeholder="Ej: Juzgado Civil N°4"></div>
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="folder" data-icon-size="18"></i><span>Secretaría</span></div><input class="input-control"></div>
+
+      <div class="input-group">
+        <div class="input-group-prefix"><i data-icon="briefcase" data-icon-size="18"></i><span>Tipo de proceso</span></div>
+        <div class="dropdown" data-dropdown style="flex:1; border-left:1px solid var(--color-border-subtle);">
+          <button type="button" class="dropdown-toggle is-open" data-dropdown-toggle style="border:none; border-radius:0;"><span class="truncate">Seleccione...</span><i data-icon="chevron-down" data-icon-size="16" class="caret"></i></button>
+          <div class="dropdown-menu is-open">
+            <div class="dropdown-item is-selected">Seleccione...</div>
+            <div class="dropdown-item is-hover">Proc A</div>
+            <div class="dropdown-item">Proc B</div>
+            <div class="dropdown-item">Proc C</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="user" data-icon-size="18"></i><span>Actor</span></div><input class="input-control"></div>
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="users" data-icon-size="18"></i><span>Demandado</span></div><input class="input-control"></div>
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="calendar" data-icon-size="18"></i><span>Fecha de inicio</span></div><input class="input-control" type="date"></div>
+      <div class="input-group"><div class="input-group-prefix"><i data-icon="id-card" data-icon-size="18"></i><span>Abogado a cargo</span></div><input class="input-control" value="Horacio Gayoso"></div>
+
+      <div class="field" style="margin-top:8px;">
+        <span class="field-label"><i data-icon="paperclip" class="icon"></i>Documentación existente (opcional)</span>
+        <div class="file-drop">Arrastrá archivos acá o hacé clic para adjuntar (PDF, Word, imágenes)</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label"><i data-icon="message" class="icon"></i>Observaciones</span>
+        <textarea class="simple-input" rows="3" placeholder="Notas internas sobre el caso..."></textarea>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-sm" style="margin-top:24px;">
+      <a href="expedientes.html" class="btn btn-secondary">Volver</a>
+      <button type="submit" class="btn btn-primary">Guardar expediente</button>
+    </div>
+  </form>
+</div>
+<script src="icons.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>
