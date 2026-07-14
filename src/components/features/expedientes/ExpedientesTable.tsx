@@ -5,7 +5,13 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@
 import { ExpedienteRow } from "./ExpedienteRow";
 import type { Expediente } from "./types";
 
-export type SortKey = "caratula" | "numeroExpediente" | "fuero" | "proceso" | "estado";
+export type SortKey =
+  | "caratula"
+  | "numeroExpediente"
+  | "fuero"
+  | "proceso"
+  | "estado"
+  | "fechaCreacion";
 export type SortDir = "asc" | "desc";
 
 interface Column {
@@ -15,12 +21,13 @@ interface Column {
 }
 
 const COLUMNS: Column[] = [
-  { label: "Carátula", width: "34%", key: "caratula" },
-  { label: "Expediente", width: "14%", key: "numeroExpediente" },
+  { label: "Carátula", width: "30%", key: "caratula" },
+  { label: "Expediente", width: "12%", key: "numeroExpediente" },
   { label: "Fuero", width: "12%", key: "fuero" },
-  { label: "Proceso", width: "12%", key: "proceso" },
-  { label: "Estado", width: "18%", key: "estado" },
-  { label: "Acciones", width: "10%" },
+  { label: "Proceso", width: "11%", key: "proceso" },
+  { label: "Estado", width: "15%", key: "estado" },
+  { label: "Creado", width: "11%", key: "fechaCreacion" },
+  { label: "Acciones", width: "9%" },
 ];
 
 interface ExpedientesTableProps {

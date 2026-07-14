@@ -12,12 +12,20 @@ import {
 import { cn } from "@/lib/utils";
 import type { Expediente } from "./types";
 
+// ISO (YYYY-MM-DD) → DD/MM/AAAA sin pasar por Date (evita corrimientos por zona
+// horaria).
+function formatFecha(iso: string): string {
+  const [y, m, d] = iso.split("-");
+  return `${d}/${m}/${y}`;
+}
+
 export function ExpedienteRow({
   caratula,
   numeroExpediente,
   fuero,
   proceso,
   estado,
+  fechaCreacion,
   archivado,
 }: Expediente) {
   return (
@@ -42,17 +50,29 @@ export function ExpedienteRow({
               aria-hidden="true"
             />
           )}
-          <span className="truncate-cell" title={archivado ? `${caratula} (archivado)` : caratula}>
+          <span
+            className="truncate-cell uppercase"
+            title={archivado ? `${caratula} (archivado)` : caratula}
+          >
             {caratula}
           </span>
         </span>
       </TableCell>
       <TableCell className="tabular-nums">{numeroExpediente}</TableCell>
-      <TableCell>{fuero}</TableCell>
-      <TableCell>{proceso}</TableCell>
+      <TableCell>
+        <span className="truncate-cell" title={fuero}>
+          {fuero}
+        </span>
+      </TableCell>
+      <TableCell>
+        <span className="truncate-cell" title={proceso}>
+          {proceso}
+        </span>
+      </TableCell>
       <TableCell>
         <StatusBadge variant={estado.color}>{estado.label}</StatusBadge>
       </TableCell>
+      <TableCell className="tabular-nums whitespace-nowrap">{formatFecha(fechaCreacion)}</TableCell>
       <TableCell>
         <DropdownMenu>
           <DropdownMenuTrigger

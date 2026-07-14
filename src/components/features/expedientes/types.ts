@@ -12,11 +12,21 @@ export interface Expediente {
   fuero: string;
   proceso: string;
   estado: EstadoExpediente;
+  /** Fecha de creación en ISO (YYYY-MM-DD). Ordenable; por defecto se ordena
+   * del más nuevo al más viejo. */
+  fechaCreacion: string;
   archivado?: boolean;
 }
 
-export const FUERO_OPTIONS = ["Fuero A", "Fuero B", "Fuero C", "Fuero D", "Fuero E", "Fuero F"];
-export const PROCESO_OPTIONS = ["Proc A", "Proc B", "Proc C"];
+export const FUERO_OPTIONS = [
+  "Civil",
+  "Comercial",
+  "Laboral",
+  "Familia",
+  "Penal",
+  "Contencioso administrativo",
+];
+export const PROCESO_OPTIONS = ["Ordinario", "Ejecutivo", "Sumarísimo"];
 export const ESTADO_OPTIONS = ["Al día", "Pendiente", "Urgente", "Inactivo", "Listo para cobro"];
 
 const ESTADOS: EstadoExpediente[] = [
@@ -40,6 +50,14 @@ const CARATULAS = [
   "Torres, Lucía c/ Municipalidad s/ Contencioso administrativo",
 ];
 
+// Fechas de creación de ejemplo: distintas y en desorden respecto del número de
+// expediente (para que ordenar por fecha se note). ISO YYYY-MM-DD.
+const BASE = Date.UTC(2025, 4, 28); // 28 may 2025
+function fechaAt(i: number): string {
+  const days = i * 4 + ((i * 13) % 9);
+  return new Date(BASE - days * 86_400_000).toISOString().slice(0, 10);
+}
+
 // TODO(etapa 2, RF-12): reemplazar por datos reales desde Supabase (listado
 // paginado server-side). Se generan ~24 registros de ejemplo para que la
 // paginación, el orden y el contador tengan sentido en el prototipo.
@@ -52,6 +70,7 @@ export const MOCK_EXPEDIENTES: Expediente[] = Array.from({ length: 24 }, (_, i) 
     fuero: FUERO_OPTIONS[i % FUERO_OPTIONS.length],
     proceso: PROCESO_OPTIONS[i % PROCESO_OPTIONS.length],
     estado: ESTADOS[i % ESTADOS.length],
+    fechaCreacion: fechaAt(i),
     archivado: i % 7 === 6,
   };
 });

@@ -35,8 +35,9 @@ interface ExpedientesViewProps {
  */
 export function ExpedientesView({ header }: ExpedientesViewProps) {
   const [filters, setFilters] = useState<ExpedientesFiltersValue>(EMPTY_FILTERS);
-  const [sortKey, setSortKey] = useState<SortKey>("numeroExpediente");
-  const [sortDir, setSortDir] = useState<SortDir>("asc");
+  // Por defecto: ordenado por fecha de creación, del más nuevo al más viejo.
+  const [sortKey, setSortKey] = useState<SortKey>("fechaCreacion");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [loading, setLoading] = useState(true);
