@@ -1,16 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  CModal,
-  CModalHeader,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
-  CButton,
-  CFormInput,
-  CFormLabel,
-} from "@coreui/react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 interface FueroFormModalProps {
   visible: boolean;
@@ -42,29 +36,29 @@ export function FueroFormModal({ visible, onClose, onSave, initialValue = "" }: 
   };
 
   return (
-    <CModal visible={visible} onClose={onClose} alignment="center">
-      <CModalHeader>
-        <CModalTitle>{isEdit ? "Editar fuero" : "Nuevo fuero"}</CModalTitle>
-      </CModalHeader>
-      <CModalBody>
-        <CFormLabel htmlFor="fuero-nombre">Nombre del fuero</CFormLabel>
-        <CFormInput
-          id="fuero-nombre"
-          autoFocus
-          placeholder="Ej: Civil"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSave()}
-        />
-      </CModalBody>
-      <CModalFooter>
-        <CButton color="secondary" variant="outline" onClick={onClose}>
-          Cancelar
-        </CButton>
-        <CButton color="info" className="text-white" onClick={handleSave}>
-          Guardar fuero
-        </CButton>
-      </CModalFooter>
-    </CModal>
+    <Dialog open={visible} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{isEdit ? "Editar fuero" : "Nuevo fuero"}</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-1.5">
+          <Label htmlFor="fuero-nombre">Nombre del fuero</Label>
+          <Input
+            id="fuero-nombre"
+            autoFocus
+            placeholder="Ej: Civil"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSave()}
+          />
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Cancelar
+          </Button>
+          <Button onClick={handleSave}>Guardar fuero</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
