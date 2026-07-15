@@ -13,6 +13,9 @@ interface DatePickerProps {
   /** Valor inicial en ISO (YYYY-MM-DD). */
   defaultValue?: string;
   placeholder?: string;
+  /** Opcional: para uso controlado (ej. un form con estado React en vez de
+   * FormData nativo). Se llama con la fecha en ISO al seleccionar un día. */
+  onSelect?: (iso: string) => void;
 }
 
 function toISO(date: Date): string {
@@ -44,7 +47,13 @@ function formatDisplay(date: Date): string {
  * El popover reusa `.briefly-menu` (mismo fondo/borde/animación que los demás
  * desplegables) y un <input type="hidden"> serializa la fecha para FormData.
  */
-export function DatePicker({ id, name, defaultValue, placeholder = "Seleccionar fecha…" }: DatePickerProps) {
+export function DatePicker({
+  id,
+  name,
+  defaultValue,
+  placeholder = "Seleccionar fecha…",
+  onSelect,
+}: DatePickerProps) {
   const [date, setDate] = React.useState<Date | undefined>(() => fromISO(defaultValue));
   const [open, setOpen] = React.useState(false);
 
@@ -80,6 +89,7 @@ export function DatePicker({ id, name, defaultValue, placeholder = "Seleccionar 
             onSelect={(d) => {
               setDate(d);
               setOpen(false);
+              if (d) onSelect?.(toISO(d));
             }}
             components={{
               // Chevron propio (lucide) en vez del ícono por defecto de
