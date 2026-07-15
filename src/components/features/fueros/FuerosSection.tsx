@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { CTable, CTableHead, CTableRow, CTableHeaderCell, CTableBody } from "@coreui/react";
+import { Plus } from "lucide-react";
 import { Topbar } from "@/components/layout/Topbar";
-import { Fab } from "@/components/ui/Fab";
+import { Table, TableHeader, TableBody, TableRow, TableHead } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { FueroRow } from "./FueroRow";
 import { FueroFormModal } from "./FueroFormModal";
 import { MOCK_FUEROS, type Fuero } from "./types";
@@ -15,14 +16,12 @@ const COLUMNS = [
 ];
 
 /**
- * Contenido completo de /fueros (Topbar + tabla + modal de alta/edición). La
- * explicación de qué es un fuero va como tooltip del ícono de info junto al
- * título (prop `titleInfo` de Topbar), no como párrafo aparte. El alta usa el
- * mismo <Fab> que Expedientes (con `onClick` en vez de `href`, porque acá
- * abre una modal sobre el propio listado en vez de navegar a una página
- * nueva) — así el botón de "agregar" se ve y se comporta igual en toda la
- * app, sea cual sea la entidad. Va en un único Client Component porque el
- * Fab y las filas de la tabla comparten el mismo estado de modal.
+ * Contenido completo de /fueros (Topbar + tabla + modal de alta/edición).
+ * Congruente con /expedientes: mismas primitivas Table, mismo botón de alta en
+ * el Topbar (en vez del FAB flotante del prototipo original — ver la migración
+ * de Expedientes: un botón "+ Nuevo X" en el header lee más a producto que un
+ * FAB de mobile). El alta abre una modal sobre el propio listado (no navega a
+ * una página nueva, a diferencia de expedientes/nuevo).
  */
 export function FuerosSection() {
   const [fueros, setFueros] = useState<Fuero[]>(MOCK_FUEROS);
@@ -49,32 +48,35 @@ export function FuerosSection() {
   };
 
   return (
-    <>
-      {/* <main> ya no pone padding (ver AppShell): cada pantalla pone el suyo. */}
-      <div className="p-4 md:p-6">
-        <Topbar
-          title="Fueros"
-          titleInfo="Los fueros clasifican tus expedientes (Civil, Comercial, Laboral, etc.) y se usan como filtro en el listado."
-        />
+    <div className="p-4 md:p-6">
+      <Topbar
+        title="Fueros"
+        titleInfo="Los fueros clasifican tus expedientes (Civil, Comercial, Laboral, etc.) y se usan como filtro en el listado."
+        actions={
+          <Button onClick={openCreate}>
+            <Plus className="h-4 w-4" />
+            Nuevo fuero
+          </Button>
+        }
+      />
 
-        <div className="briefly-card" style={{ padding: 0, overflow: "hidden" }}>
-          <CTable hover responsive style={{ tableLayout: "fixed" }}>
-          <CTableHead>
-            <CTableRow>
+      <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
+        <Table style={{ tableLayout: "fixed" }}>
+          <TableHeader>
+            <TableRow>
               {COLUMNS.map((col) => (
-                <CTableHeaderCell key={col.label} style={{ width: col.width }}>
+                <TableHead key={col.label} style={{ width: col.width }}>
                   {col.label}
-                </CTableHeaderCell>
+                </TableHead>
               ))}
-            </CTableRow>
-          </CTableHead>
-          <CTableBody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {fueros.map((fuero) => (
               <FueroRow key={fuero.id} {...fuero} onEdit={openEdit} />
             ))}
-          </CTableBody>
-          </CTable>
-        </div>
+          </TableBody>
+        </Table>
       </div>
 
       <FueroFormModal
@@ -83,8 +85,6 @@ export function FuerosSection() {
         onSave={handleSave}
         initialValue={editingFuero?.nombre ?? ""}
       />
-
-      <Fab onClick={openCreate} title="Nuevo fuero" />
-    </>
+    </div>
   );
 }

@@ -53,7 +53,10 @@ export function MultiSelectDropdown({
             </svg>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" style={{ width }}>
+        {/* minWidth (no width fijo): el menú arranca del ancho del trigger pero
+           CRECE para mostrar completo el texto de cada opción (ej. "Contencioso
+           administrativo"), en vez de truncarlo. */}
+        <DropdownMenuContent align="start" className="max-w-[320px]" style={{ minWidth: width }}>
           {options.map((option) => (
             <DropdownMenuCheckboxItem
               key={option}

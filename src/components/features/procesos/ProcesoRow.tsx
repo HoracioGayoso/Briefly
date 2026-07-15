@@ -2,23 +2,24 @@
 
 import { Pencil } from "lucide-react";
 import { TableRow, TableCell } from "@/components/ui/table";
-import type { Fuero } from "./types";
+import type { Proceso } from "./types";
 
-interface FueroRowProps extends Fuero {
-  onEdit: (fuero: Fuero) => void;
+interface ProcesoRowProps extends Proceso {
+  onEdit: (proceso: Proceso) => void;
 }
 
-export function FueroRow({ id, nombre, expedientesAsociados, onEdit }: FueroRowProps) {
+export function ProcesoRow({ id, nombre, fuero, expedientesAsociados, onEdit }: ProcesoRowProps) {
   return (
     <TableRow className="group hover:bg-(--color-accent) hover:text-white">
       <TableCell>{nombre}</TableCell>
+      <TableCell>{fuero}</TableCell>
       <TableCell className="tabular-nums">{expedientesAsociados}</TableCell>
       <TableCell>
         <button
           type="button"
-          title="Editar fuero"
-          aria-label="Editar fuero"
-          onClick={() => onEdit({ id, nombre, expedientesAsociados })}
+          title="Editar proceso"
+          aria-label="Editar proceso"
+          onClick={() => onEdit({ id, nombre, fuero, expedientesAsociados })}
           className="inline-flex h-8 w-8 items-center justify-center rounded-md text-(--color-text-secondary) transition-colors outline-none hover:bg-(--color-bg-elevated-2) hover:text-(--color-text-primary) group-hover:text-white"
         >
           <Pencil className="h-4 w-4" />

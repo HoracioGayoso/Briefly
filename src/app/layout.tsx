@@ -21,8 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" data-coreui-theme="dark">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+    // h-full + overflow-hidden en html/body: garantiza que NUNCA aparezca un
+    // scroll a nivel documento (independiente de <main>, que es el único
+    // contenedor pensado para scrollear — ver AppShell). Sin esto, un
+    // desborde mínimo del documento podía sumar un segundo scrollbar del
+    // navegador pegado al de <main> ("doble scroll" reportado).
+    <html lang="es" data-coreui-theme="dark" className="h-full overflow-hidden">
+      <body className={`${inter.variable} antialiased h-full overflow-hidden`}>{children}</body>
     </html>
   );
 }

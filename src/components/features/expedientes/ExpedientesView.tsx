@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { ExpedientesFilters, type ExpedientesFiltersValue } from "./ExpedientesFilters";
 import { ExpedientesTable, type SortKey, type SortDir } from "./ExpedientesTable";
 import { Pagination } from "@/components/ui/Pagination";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { MOCK_EXPEDIENTES, type Expediente } from "./types";
 
 const EMPTY_FILTERS: ExpedientesFiltersValue = {
@@ -35,8 +36,9 @@ interface ExpedientesViewProps {
  */
 export function ExpedientesView({ header }: ExpedientesViewProps) {
   const [filters, setFilters] = useState<ExpedientesFiltersValue>(EMPTY_FILTERS);
-  const [sortKey, setSortKey] = useState<SortKey>("numeroExpediente");
-  const [sortDir, setSortDir] = useState<SortDir>("asc");
+  // Por defecto: ordenado por fecha de creación, del más nuevo al más viejo.
+  const [sortKey, setSortKey] = useState<SortKey>("fechaCreacion");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [loading, setLoading] = useState(true);
@@ -121,20 +123,21 @@ export function ExpedientesView({ header }: ExpedientesViewProps) {
             {loading ? "Cargando…" : total === 0 ? "Sin resultados" : `Mostrando ${from}–${to} de ${total}`}
           </span>
           <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2 text-(--color-text-secondary)">
-              Filas
-              <select
-                value={pageSize}
-                onChange={(e) => setPageSize(Number(e.target.value))}
-                className="h-8 rounded-md border border-white/15 bg-(--color-bg-elevated-2) px-2 text-(--color-text-primary) outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)/40"
-              >
-                {PAGE_SIZES.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="flex items-center gap-2 text-(--color-text-secondary)">
+              <span id="page-size-label">Filas</span>
+              <Select value={String(pageSize)} onValueChange={(v) => setPageSize(Number(v))}>
+                <SelectTrigger aria-labelledby="page-size-label" className="h-8 w-[70px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {PAGE_SIZES.map((s) => (
+                    <SelectItem key={s} value={String(s)}>
+                      {s}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             {totalPages > 1 && (
               <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setPage} />
             )}
